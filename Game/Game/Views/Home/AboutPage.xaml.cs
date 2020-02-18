@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Game.Models;
+using Game.Services;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Xamarin.Forms;
 
@@ -11,7 +14,7 @@ namespace Game.Views
     public partial class AboutPage : ContentPage
     {
         // Constructor for UnitTests
-        public AboutPage(bool UnitTest){}
+        public AboutPage(bool UnitTest) { }
 
         /// <summary>
         /// Constructor for About Page
@@ -48,8 +51,8 @@ namespace Game.Views
         /// <param name="e"></param>
         public void DebugSettingsSwitch_OnToggled(object sender, ToggledEventArgs e)
         {
-           // Show or hide the Debug Settings
-           DebugSettingsFrame.IsVisible = (e.Value);
+            // Show or hide the Debug Settings
+            DebugSettingsFrame.IsVisible = (e.Value);
         }
 
         /// <summary>
@@ -83,6 +86,80 @@ namespace Game.Views
             {
                 MessagingCenter.Send(this, "WipeDataList", true);
             }
+        }
+
+        /// <summary>
+        /// Example of how to call for Items using HttpGet
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void GetItemsGet_Command(object sender, EventArgs e)
+        {
+            var myOutput = "No Results";
+            var myDataList = new List<ItemModel>();
+
+            var answer = await DisplayAlert("Get", "Sure you want to Get Items from the Server?", "Yes", "No");
+            if (answer)
+            {
+                // Call to the ItemModel Service and have it Get the Items
+                // The ServerItemValue Code stands for the batch of items to get
+                // as the group to request.  1, 2, 3, 100 (All), or if not specified All
+
+                var value = Convert.ToInt32(ServerItemValue.Text);
+                myDataList = await Services.ItemService.GetItemsFromServerGetAsync(value);
+
+                if (myDataList != null && myDataList.Count > 0)
+                {
+                    // Reset the output
+                    myOutput = "";
+
+                    foreach (var ItemModel in myDataList)
+                    {
+                        // Add them line by one, use \n to force new line for output display.
+                        // Build up the output string by adding formatted ItemModel Output
+                        myOutput += ItemModel.FormatOutput() + "\n";
+                    }
+                }
+
+                await DisplayAlert("Returned List", myOutput, "OK");
+            }
+        }
+
+        /// <summary>
+        /// Example of how to call for Items using Http Post
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void GetItemsPost_Command(object sender, EventArgs e)
+        {
+            var myOutput = "No Results";
+            var myDataList = new List<ItemModel>();
+
+            var number = Convert.ToInt32(ServerItemValue.Text);
+            var level = 6;  // Max Value of 6
+            var attribute = AttributeEnum.Unknown;  // Any Attribute
+            var location = ItemLocationEnum.Unknown;    // Any Location
+            var random = true;  // Random between 1 and Level
+            var updateDataBase = true;  // Add them to the DB
+            var category = 0;   // What category to filter down to, 0 is all
+
+            // will return shoes value 10 of speed.
+            // Example  result = await ItemsController.Instance.GetItemsFromGame(1, 10, AttributeEnum.Speed, ItemLocationEnum.Feet, false, true);
+            myDataList = await ItemService.GetItemsFromServerPostAsync(number, level, attribute, location, category, random, updateDataBase);
+
+            if (myDataList != null && myDataList.Count > 0)
+            {
+                // Reset the output
+                myOutput = "";
+
+                foreach (var ItemModel in myDataList)
+                {
+                    // Add them line by one, use \n to force new line for output display.
+                    myOutput += ItemModel.FormatOutput() + "\n";
+                }
+            }
+
+            await DisplayAlert("Returned List", myOutput, "OK");
         }
     }
 }
