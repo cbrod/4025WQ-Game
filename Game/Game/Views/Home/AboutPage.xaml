@@ -89,7 +89,7 @@
                         x:Name="DebugSettingsFrame"
                         IsVisible="False">
 
-                <StackLayout Style="{StaticResource HorizontalStack}"
+                <StackLayout Style="{StaticResource VerticalStack}"
                                     Padding="50,0,0,0">
 
                     <Label Text="More Debug Settings to come..." />
