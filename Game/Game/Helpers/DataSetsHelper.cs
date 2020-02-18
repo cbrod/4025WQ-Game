@@ -1,4 +1,5 @@
 ﻿using Game.ViewModels;
+using System.Threading.Tasks;
 
 namespace Game.Helpers
 {
@@ -8,6 +9,14 @@ namespace Game.Helpers
         {
             ScoreIndexViewModel.Instance.GetCurrentDataSource();
             ItemIndexViewModel.Instance.GetCurrentDataSource();
+        }
+
+        static public async Task<bool> WipeData()
+        {
+            await ScoreIndexViewModel.Instance.WipeDataListAsync();
+            await ItemIndexViewModel.Instance.WipeDataListAsync();
+
+            return true;
         }
     }
 }
