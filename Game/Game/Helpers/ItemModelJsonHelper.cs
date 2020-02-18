@@ -59,30 +59,21 @@ namespace Game.Helpers
         {
             var myData = new ItemModel();
 
-            try
-            {
-                myData.Name = JsonHelper.GetJsonString(json, "Name");
-                myData.Guid = JsonHelper.GetJsonString(json, "Guid");
-                myData.Id = myData.Guid;    // Set to be the same as Guid, does not come down from server, but needed for DB
+            myData.Name = JsonHelper.GetJsonString(json, "Name");
+            myData.Guid = JsonHelper.GetJsonString(json, "Guid");
+            myData.Id = myData.Guid;    // Set to be the same as Guid, does not come down from server, but needed for DB
 
-                myData.Description = JsonHelper.GetJsonString(json, "Description");
-                myData.ImageURI = JsonHelper.GetJsonString(json, "ImageURI");
+            myData.Description = JsonHelper.GetJsonString(json, "Description");
+            myData.ImageURI = JsonHelper.GetJsonString(json, "ImageURI");
 
-                myData.Value = JsonHelper.GetJsonInteger(json, "Value");
-                myData.Range = JsonHelper.GetJsonInteger(json, "Range");
-                myData.Damage = JsonHelper.GetJsonInteger(json, "Damage");
+            myData.Value = JsonHelper.GetJsonInteger(json, "Value");
+            myData.Range = JsonHelper.GetJsonInteger(json, "Range");
+            myData.Damage = JsonHelper.GetJsonInteger(json, "Damage");
 
-                //myData.Category = JsonHelper.GetJsonInteger(json, "Category");
+            //myData.Category = JsonHelper.GetJsonInteger(json, "Category");
 
-                myData.Location = (ItemLocationEnum)JsonHelper.GetJsonInteger(json, "Location");
-                myData.Attribute = (AttributeEnum)JsonHelper.GetJsonInteger(json, "Attribute");
-            }
-
-            catch (Exception Ex)
-            {
-                Console.WriteLine(Ex.ToString());
-                return null;
-            }
+            myData.Location = (ItemLocationEnum)JsonHelper.GetJsonInteger(json, "Location");
+            myData.Attribute = (AttributeEnum)JsonHelper.GetJsonInteger(json, "Attribute");
 
             return myData;
         }
