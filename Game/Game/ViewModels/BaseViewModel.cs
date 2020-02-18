@@ -116,6 +116,15 @@ namespace Game.ViewModels
 
         /// <summary>
         ///  Load the DefaultData
+        ///  
+        /// READ this:
+        /// 
+        /// This will clear the dataset, and then reload the default data.
+        /// This is so the system, is always restored into a known good state
+        /// Defalt Data is part of being in the known good state
+        /// If after wipeing the system, if the data lists are empty, something is wrong
+        /// As populated lists are expected
+        /// 
         /// </summary>
         /// <returns></returns>
         public async Task<bool> LoadDefaultDataAsync()
