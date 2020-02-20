@@ -1,5 +1,7 @@
 ﻿using Game.Models;
+using Game.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Game.Services
 {
@@ -42,6 +44,35 @@ namespace Game.Services
                     Value = 9,
                     Location = ItemLocationEnum.Head,
                     Attribute = AttributeEnum.Speed},
+
+                new ItemModel {
+                    Name = "Bunny Hat",
+                    Description = "Pink hat with fluffy ears",
+                    ImageURI = "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png",
+                    Range = 0,
+                    Damage = 0,
+                    Value = 9,
+                    Location = ItemLocationEnum.Necklass,
+                    Attribute = AttributeEnum.Speed},
+
+                                new ItemModel {
+                    Name = "Bunny Hat",
+                    Description = "Pink hat with fluffy ears",
+                    ImageURI = "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png",
+                    Range = 0,
+                    Damage = 0,
+                    Value = 9,
+                    Location = ItemLocationEnum.Finger,
+                    Attribute = AttributeEnum.Speed},
+                                                new ItemModel {
+                    Name = "Bunny Hat",
+                    Description = "Pink hat with fluffy ears",
+                    ImageURI = "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png",
+                    Range = 0,
+                    Damage = 0,
+                    Value = 9,
+                    Location = ItemLocationEnum.Feet,
+                    Attribute = AttributeEnum.Speed},
             };
 
             return datalist;
@@ -71,10 +102,17 @@ namespace Game.Services
             {
                 new CharacterModel {
                     Name = "Mike",
-                    Description = "Warrior Wantabe",
+                    Description = "Warrior Wannabe",
                     Level = 1,
                     MaxHealth = 5,
-                    ImageURI = "knight.png"
+                    ImageURI = "knight.png",
+                    Head = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Head).FirstOrDefault().Id,
+                    Necklass = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Necklass).FirstOrDefault().Id,
+                    PrimaryHand = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.PrimaryHand).FirstOrDefault().Id,
+                    OffHand = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.OffHand).FirstOrDefault().Id,
+                    Feet = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Feet).FirstOrDefault().Id,
+                    RightFinger = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Finger).FirstOrDefault().Id,
+                    LeftFinger = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Finger).LastOrDefault().Id,
                 },
 
                 new CharacterModel {
