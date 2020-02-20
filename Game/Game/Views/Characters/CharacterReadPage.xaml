@@ -200,7 +200,7 @@
                 
                 <Frame 
                     BorderColor="{StaticResource TriciaryTextColor}" Padding="1">
-                    <StackLayout Style="{StaticResource VerticalStack}" HorizontalOptions="CenterAndExpand">
+                    <StackLayout Style="{StaticResource VerticalStack}" HorizontalOptions="CenterAndExpand" Padding="2">
                         <Image x:Name="PopupItemImage" Style="{StaticResource ImageLargeStyle}"/>
 
                         <Label x:Name="PopupItemName" Style="{StaticResource PopupItemTextStyle}" />
@@ -218,9 +218,7 @@
 
                         <Button x:Name="PopupCloseButton" 
                                 Clicked="ClosePopup_Clicked" 
-                                Text="Close"
-                                Padding="0,0,2,0"
-                                />
+                                Text="Close"/>
                     </StackLayout>
                 </Frame>
             </StackLayout>

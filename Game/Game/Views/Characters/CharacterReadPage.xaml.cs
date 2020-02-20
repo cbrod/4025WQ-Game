@@ -4,6 +4,7 @@ using Game.ViewModels;
 using System;
 using Game.Models;
 using System.Threading.Tasks;
+using Game.Helpers;
 
 namespace Game.Views
 {
@@ -39,13 +40,16 @@ namespace Game.Views
         /// </summary>
         public void AddItemsToDisplay()
         {
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.Head));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.Necklass));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.PrimaryHand));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.OffHand));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.RightFinger));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.LeftFinger));
-            ItemBox.Children.Add(GetItemToDisplay(ItemLocationEnum.Feet));
+
+            var myDataList = ItemLocationEnumHelper.GetListCharacter;
+
+            // Act
+
+            // Make sure each item is in the list
+            foreach (var data in myDataList)
+            {
+                ItemBox.Children.Add(GetItemToDisplay(ViewModel.Data.GetItemByLocation(ItemLocationEnumHelper.ConvertStringToEnum(data))));
+            }
         }
 
         /// <summary>
@@ -53,10 +57,12 @@ namespace Game.Views
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        public StackLayout GetItemToDisplay(ItemLocationEnum location)
+        public StackLayout GetItemToDisplay(ItemModel data)
         {
-
-            var data = new ItemModel();
+            if (data == null)
+            {
+                return new StackLayout();
+            }
 
             // Hookup the Image Button to show the Item picture
             var ItemButton = new ImageButton
@@ -95,9 +101,9 @@ namespace Game.Views
 
             PopupItemName.Text = data.Name;
             PopupItemDescription.Text = data.Description;
-            PopupItemLocation.Text = data.Location.ToString();
-            PopupItemValue.Text = data.Value.ToString();
-            PopupItemAttribute.Text = data.Attribute.ToString();
+            PopupItemLocation.Text = data.Location.ToMessage();
+            PopupItemAttribute.Text = data.Attribute.ToMessage();
+            PopupItemValue.Text = " + " +data.Value.ToString();
 
             return true;
         }
