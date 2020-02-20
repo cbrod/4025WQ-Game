@@ -3,6 +3,7 @@ using Game.Models;
 using Game.ViewModels;
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace Game.Views
@@ -17,7 +18,7 @@ namespace Game.Views
         public GenericViewModel<CharacterModel> ViewModel { get; set; }
 
         // Empty Constructor for UTs
-        public CharacterCreatePage(bool UnitTest){}
+        public CharacterCreatePage(bool UnitTest) { }
 
         /// <summary>
         /// Constructor for Create makes a new model
@@ -39,6 +40,9 @@ namespace Game.Views
             }
 
             MaxHealthValue.Text = string.Format(" : {0:G}", ViewModel.Data.MaxHealth);
+
+            //LevelPicker.SelectedIndex = data.Data.Level - 1;
+            LevelPicker.SelectedItem = LevelPicker.Items.First();
         }
 
         /// <summary>
@@ -82,6 +86,36 @@ namespace Game.Views
         public async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Attack
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Attack_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            AttackValue.Text = String.Format("{0}", e.NewValue);
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Defense
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Defense_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            DefenseValue.Text = String.Format("{0}", e.NewValue);
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Speed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Speed_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            SpeedValue.Text = String.Format("{0}", e.NewValue);
         }
     }
 }
