@@ -1,4 +1,7 @@
-﻿using Game.ViewModels;
+﻿using Game.Helpers;
+using Game.ViewModels;
+using SQLite;
+using System;
 using System.Collections.Generic;
 
 namespace Game.Models
@@ -12,42 +15,39 @@ namespace Game.Models
         #region Attributes
 
         #region GameEngineAttributes
-        // Guid of the original data it links back to the ID, used in Game Engine
-        public string Guid;
-
         // alive status, !alive will be removed from the list
-        public bool Alive = true;
+        public bool Alive { get; set; } = true;
 
         // The type of player, character comes before monster
-        public PlayerTypeEnum PlayerType = PlayerTypeEnum.Unknown;
+        public PlayerTypeEnum PlayerType { get; set; } = PlayerTypeEnum.Unknown;
 
         // TurnOrder
-        public int Order = 0;
+        public int Order { get; set; } = 0;
 
         // Remember who was first into the list...
-        public int ListOrder = 0;
+        public int ListOrder { get; set; } = 0;
 
         #endregion GameEngineAttributes
 
         #region PlayerAttributes
 
-        // Total speed, including level and items
-        public int Speed = 0;
-
         // Level of character or monster
-        public int Level = 0;
+        public int Level { get; set; } = 0;
 
         // The experience points the player has used in sorting ties...
-        public int ExperiencePoints = 0;
+        public int ExperiencePoints { get; set; } = 0;
 
         // Current Health
-        public int CurrentHealth = 0;
+        public int CurrentHealth { get; set; } = 0;
 
         // Max Health
-        public int MaxHealth = 0;
+        public int MaxHealth { get; set; } = 0;
 
         // Total Experience
-        public int ExperienceTotal = 0;
+        public int ExperienceTotal { get; set; } = 0;
+
+        // Total speed, including level and items
+        public int Speed { get; set; } = 0;
 
         // The defense score, to be used for defending against attacks
         public int Defense { get; set; } = 0;
@@ -56,6 +56,8 @@ namespace Game.Models
         public int Attack { get; set; } = 0;
 
         #endregion PlayerAttributes
+
+        #endregion Attributes
 
         #region Items
         // ItemModel is a string referencing the database table
@@ -79,7 +81,132 @@ namespace Game.Models
         // LeftFinger is a string referencing the database table
         public string LeftFinger { get; set; } = null;
         #endregion Items
-        #endregion Attributes
+
+        #region AttributeDisplay
+
+        // Following returns the values for each of the attributes with the modifiers
+
+        #region Attack        
+        [Ignore]
+        // Return the attack value
+        public int GetAttackLevelBonus { get { return LevelTableHelper.Instance.LevelDetailsList[Level].Attack; } }
+
+        [Ignore]
+        // Return the Attack with Item Bonus
+        public int GetAttackItemBonus { get { return GetItemBonus(AttributeEnum.Attack); } }
+
+        [Ignore]
+        // Return the Total of All Attack
+        public int GetAttackTotal { get { return GetAttack(); } }
+        #endregion Attack
+
+        #region Defense
+        [Ignore]
+        // Return the Defense value
+        public int GetDefenseLevelBonus { get { return LevelTableHelper.Instance.LevelDetailsList[Level].Defense; } }
+
+        [Ignore]
+        // Return the Defense with Item Bonus
+        public int GetDefenseItemBonus { get { return GetItemBonus(AttributeEnum.Defense); } }
+
+        [Ignore]
+        // Return the Total of All Defense
+        public int GetDefenseTotal { get { return GetDefense(); } }
+        #endregion Defense
+
+        #region Speed
+        [Ignore]
+        // Return the Speed value
+        public int GetSpeedLevelBonus { get { return LevelTableHelper.Instance.LevelDetailsList[Level].Speed; } }
+
+        [Ignore]
+        // Return the Speed with Item Bonus
+        public int GetSpeedItemBonus { get { return GetItemBonus(AttributeEnum.Speed); } }
+
+        [Ignore]
+        // Return the Total of All Speed
+        public int GetSpeedTotal { get { return GetSpeed(); } }
+        #endregion Speed
+
+        #region CurrentHealth
+        [Ignore]
+        // Return the CurrentHealth value
+        public int GetCurrentHealthLevelBonus { get { return 0; } }
+
+        [Ignore]
+        // Return the CurrentHealth with Item Bonus
+        public int GetCurrentHealthItemBonus { get { return GetItemBonus(AttributeEnum.CurrentHealth); } }
+
+        [Ignore]
+        // Return the Total of All CurrentHealth
+        public int GetCurrentHealthTotal { get { return GetCurrentHealth(); } }
+        #endregion CurrentHealth
+
+        #region MaxHealth
+        [Ignore]
+        // Return the MaxHealth value
+        public int GetMaxHealthLevelBonus { get { return 0; } }
+
+        [Ignore]
+        // Return the MaxHealth with Item Bonus
+        public int GetMaxHealthItemBonus { get { return GetItemBonus(AttributeEnum.MaxHealth); } }
+
+        [Ignore]
+        // Return the Total of All MaxHealth
+        public int GetMaxHealthTotal { get { return GetMaxHealth(); } }
+        #endregion MaxHealth
+
+        #region Damage
+        [Ignore]
+        // Return the Damage value, it is 25% of the Level rounded up
+        public int GetDamageLevelBonus { get {return Convert.ToInt32(Math.Ceiling(Level * .25));} }
+               
+        [Ignore]
+        // Return the Damage with Item Bonus
+        public int GetDamageItemBonus
+        {
+            get
+            {
+                var myItem = ItemIndexViewModel.Instance.GetItem(PrimaryHand);
+                if (myItem == null)
+                {
+                    return 0;
+                }
+                return myItem.Damage;
+            }
+        }
+
+        [Ignore]
+        // Return the Damage Dice if there is one
+        public string GetDamageItemBonusString
+        {
+            get
+            {
+                var data = GetDamageItemBonus;
+                if (data == 0)
+                {
+                    return "-";
+                }
+
+                return string.Format("1D {0}", data);
+            }
+        }
+
+        [Ignore]
+        // Return the Total of All Damage
+        public string GetDamageTotalString { get { 
+
+                if (GetDamageItemBonusString.Equals("-"))
+                {
+                    return GetDamageLevelBonus.ToString();
+                }
+
+                return GetDamageLevelBonus.ToString() +" + " +GetDamageItemBonusString; 
+            
+            } }
+        #endregion Damage
+
+        #endregion AttributeDisplay
 
         #region Methods
 
@@ -88,29 +215,97 @@ namespace Game.Models
             Guid = Id;
         }
 
-        public int GetAttack() { return 0; }
-        public int GetDefense() { return 0; }
-        public int GetHealthCurrent() { return CurrentHealth; }
-        public int GetHealthMax() { return MaxHealth; }
-        public int GetDamageRollValue() { return 10; }
-
+        #region GetAttributeValues
         /// <summary>
-        /// Rturn the Calculated Speed
+        /// Return the Total Attack Value
         /// </summary>
         /// <returns></returns>
-        public int GetSpeed() {
+        public int GetAttack()
+        {
+            // Base Attack
+            var myReturn = Attack;
 
-            // Base value
-            var myReturn = Speed;
+            // Attack Bonus from Level
+            myReturn += GetAttackLevelBonus;
 
-            // Get Bonus from Level
-            myReturn += LevelTableHelper.Instance.LevelDetailsList[Level].Speed;
-
-            // Get bonus from Items
-            myReturn += GetItemBonus(AttributeEnum.Speed);
+            // Get Attack bonus from Items
+            myReturn += GetAttackItemBonus;
 
             return myReturn;
         }
+
+        /// <summary>
+        /// Return the Total Defense Value
+        /// </summary>
+        /// <returns></returns>
+        public int GetDefense()
+        {
+            // Base Defense
+            var myReturn = Defense;
+
+            // Defense Bonus from Level
+            myReturn += GetDefenseLevelBonus;
+
+            // Get Defense bonus from Items
+            myReturn += GetDefenseItemBonus;
+
+            return myReturn;
+        }
+
+        /// <summary>
+        /// Return the Total Speed Value
+        /// </summary>
+        /// <returns></returns>
+        public int GetSpeed()
+        {
+            // Base Speed
+            var myReturn = Speed;
+
+            // Speed Bonus from Level
+            myReturn += GetSpeedLevelBonus;
+
+            // Get Speed bonus from Items
+            myReturn += GetSpeedItemBonus;
+
+            return myReturn;
+        }
+
+        /// <summary>
+        /// Return the Total CurrentHealth Value
+        /// </summary>
+        /// <returns></returns>
+        public int GetCurrentHealth()
+        {
+            // Base CurrentHealth
+            var myReturn = CurrentHealth;
+
+            // CurrentHealth Bonus from Level
+            myReturn += GetCurrentHealthLevelBonus;
+
+            // Get CurrentHealth bonus from Items
+            myReturn += GetCurrentHealthItemBonus;
+
+            return myReturn;
+        }
+
+        /// <summary>
+        /// Return the Total MaxHealth Value
+        /// </summary>
+        /// <returns></returns>
+        public int GetMaxHealth()
+        {
+            // Base MaxHealth
+            var myReturn = MaxHealth;
+
+            // MaxHealth Bonus from Level
+            myReturn += GetMaxHealthLevelBonus;
+
+            // Get MaxHealth bonus from Items
+            myReturn += GetMaxHealthItemBonus;
+
+            return myReturn;
+        }
+        #endregion GetAttributeValues
 
         // Take Damage
         // If the damage recived, is > health, then death occurs
@@ -133,6 +328,27 @@ namespace Game.Models
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Roll the Damage Dice, and add to the Damage
+        /// </summary>
+        /// <returns></returns>
+        public int GetDamageRollValue()
+        {
+            var myReturn = 0;
+
+            var myItem = ItemIndexViewModel.Instance.GetItem(PrimaryHand);
+            if (myItem != null)
+            {
+                // Dice of the weapon.  So sword of Damage 10 is d10
+                myReturn += DiceHelper.RollDice(1, myItem.Damage);
+            }
+
+            // Add in the Level as extra damage per game rules
+            myReturn += GetDamageLevelBonus;
+
+            return myReturn;
         }
 
         // Death
