@@ -41,14 +41,18 @@ namespace Game.Views
         public void AddItemsToDisplay()
         {
 
-            var myDataList = ItemLocationEnumHelper.GetListCharacter;
+            // Get the List of Locations a Character can have
+            var LocationList = ItemLocationEnumHelper.GetListCharacter;
 
-            // Act
-
-            // Make sure each item is in the list
-            foreach (var data in myDataList)
+            // Add Each item in the list
+            foreach (var location in LocationList)
             {
-                ItemBox.Children.Add(GetItemToDisplay(ViewModel.Data.GetItemByLocation(ItemLocationEnumHelper.ConvertStringToEnum(data))));
+                var LocationString = ItemLocationEnumHelper.ConvertStringToEnum(location).ToMessage();
+                ItemBox.Children.Add(
+                    GetItemToDisplay(
+                        LocationString,
+                        ViewModel.Data.GetItemByLocation(
+                            ItemLocationEnumHelper.ConvertStringToEnum(location))));
             }
         }
 
@@ -57,7 +61,7 @@ namespace Game.Views
         /// </summary>
         /// <param name="location"></param>
         /// <returns></returns>
-        public StackLayout GetItemToDisplay(ItemModel data)
+        public StackLayout GetItemToDisplay(string LocationString, ItemModel data)
         {
             if (data == null)
             {
@@ -77,18 +81,21 @@ namespace Game.Views
             // Add the Display Text for the item
             var ItemLabel = new Label
             {
-                Text = data.Name,
-                Style = (Style)Application.Current.Resources["ValueStyle"]
+                Text = LocationString,
+                Style = (Style)Application.Current.Resources["ValueStyle"],
+                HorizontalOptions = LayoutOptions.Center,
+                HorizontalTextAlignment = TextAlignment.Center
             };
 
             // Put the Image Button and Text inside a layout
             var ItemStack = new StackLayout
             {
                 Style = (Style)Application.Current.Resources["ItemImageBox"],
+                HorizontalOptions = LayoutOptions.Center,
                 Children = {
                     ItemButton,
                     ItemLabel
-                }
+                },
             };
 
             return ItemStack;
