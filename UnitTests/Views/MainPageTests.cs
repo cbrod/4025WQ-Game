@@ -63,41 +63,13 @@ namespace UnitTests.Views
             Assert.IsTrue(true);
         }
 
-        [Test]
-        public async Task MainPage_Navigate_Items_Should_Pass()
-        {
-            // Arrange
-
-            // Act
-            await page.NavigateFromMenu((int)MenuItemEnum.Items);
-
-            // Reset
-
-            // Assert
-            Assert.IsTrue(true);
-        }
-
-        [Test]
+       [Test]
         public async Task MainPage_Navigate_Game_Should_Pass()
         {
             // Arrange
 
             // Act
             await page.NavigateFromMenu((int)MenuItemEnum.Game);
-
-            // Reset
-
-            // Assert
-            Assert.IsTrue(true);
-        }
-
-        [Test]
-        public async Task MainPage_Navigate_Score_Should_Pass()
-        {
-            // Arrange
-
-            // Act
-            await page.NavigateFromMenu((int)MenuItemEnum.Score);
 
             // Reset
 

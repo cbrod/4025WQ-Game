@@ -30,7 +30,7 @@ namespace UnitTests.Models
             // Act
 
             // Test all the Setters
-            result.Id = MenuItemEnum.Items;
+            result.Id = MenuItemEnum.Village;
             result.Title = "bogus title";
 
             // Reset
@@ -39,7 +39,7 @@ namespace UnitTests.Models
 
             // The Get is tested by retrieving it here as well.
             Assert.AreEqual("bogus title", result.Title);
-            Assert.AreEqual(MenuItemEnum.Items, result.Id);
+            Assert.AreEqual(MenuItemEnum.Village, result.Id);
         }
     }
 }
