@@ -19,7 +19,8 @@ namespace Game.Models
             Guid = Id;
             Name = "Elf";
             Description = "Happy Elf";
-            Attack = 100;
+            Level = 1;
+            ImageURI = "knight.png";
         }
     }
 }
