@@ -183,7 +183,7 @@ namespace UnitTests.Models
             var data = new BasePlayerModel<CharacterModel>();
 
             // Act
-            var result = data.GetHealthCurrent();
+            var result = data.GetCurrentHealthTotal;
 
             // Reset
 
@@ -198,7 +198,7 @@ namespace UnitTests.Models
             var data = new BasePlayerModel<CharacterModel>();
 
             // Act
-            var result = data.GetHealthMax();
+            var result = data.GetMaxHealthTotal;
 
             // Reset
 
@@ -211,6 +211,7 @@ namespace UnitTests.Models
         {
             // Arrange
             var data = new BasePlayerModel<CharacterModel>();
+            data.Level = 1;
 
             // Act
             var result = data.GetDamageRollValue();
@@ -218,7 +219,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(10, result);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
