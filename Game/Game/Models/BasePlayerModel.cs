@@ -16,15 +16,19 @@ namespace Game.Models
 
         #region GameEngineAttributes
         // alive status, !alive will be removed from the list
+        [Ignore]
         public bool Alive { get; set; } = true;
 
         // The type of player, character comes before monster
+        [Ignore]
         public PlayerTypeEnum PlayerType { get; set; } = PlayerTypeEnum.Unknown;
 
         // TurnOrder
+        [Ignore]
         public int Order { get; set; } = 0;
 
         // Remember who was first into the list...
+        [Ignore]
         public int ListOrder { get; set; } = 0;
 
         #endregion GameEngineAttributes
