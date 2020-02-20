@@ -11,12 +11,6 @@
         // Village
         Village = 2,
 
-        // Score - Remove
-        Score = 3,
-
-        // Items - Remove
-        Items = 4,
-
         // Game
         Game = 5,
 

@@ -37,14 +37,6 @@ namespace Game.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemEnum.Score:
-                        MenuPages.Add(id, new NavigationPage(new ScoreIndexPage()));
-                        break;
-
-                    case (int)MenuItemEnum.Items:
-                        MenuPages.Add(id, new NavigationPage(new ItemIndexPage()));
-                        break;
-
                     case (int)MenuItemEnum.Village:
                         MenuPages.Add(id, new NavigationPage(new VillagePage()));
                         break;
