@@ -64,5 +64,45 @@ namespace Game.Services
 
             return datalist;
         }
+
+        public static List<CharacterModel> LoadData(CharacterModel temp)
+        {
+            var datalist = new List<CharacterModel>()
+            {
+                new CharacterModel {
+                    Name = "Mike",
+                    Description = "Warrior Wantabe",
+                    Level = 1,
+                    MaxHealth = 5,
+                    ImageURI = "knight.png"
+                },
+
+                new CharacterModel {
+                    Name = "Doug",
+                    Description = "Cleric in training",
+                    Level = 1,
+                    MaxHealth = 8,
+                    ImageURI = "knight.png"
+                },
+
+                new CharacterModel {
+                    Name = "Sue",
+                    Description = "A strong Warrior",
+                    Level = 4,
+                    MaxHealth = 38,
+                    ImageURI = "knight.png"
+                },
+
+                new CharacterModel {
+                    Name = "Jea",
+                    Description = "A powerfull Cleric",
+                    Level = 5,
+                    MaxHealth = 43,
+                    ImageURI = "knight.png"
+                }
+            };
+
+            return datalist;
+        }
     }
 }
