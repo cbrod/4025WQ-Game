@@ -100,7 +100,6 @@ namespace Game.Services
 
         public static List<CharacterModel> LoadData(CharacterModel temp)
         {
-
             string HeadString = null;
             string NecklassString = null;
             string PrimaryHandString = null;
@@ -109,18 +108,18 @@ namespace Game.Services
             string RightFingerString = null;
             string LeftFingerString = null;
 
-            try
-            {
-                HeadString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Head).FirstOrDefault().Id;
-                NecklassString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Necklass).FirstOrDefault().Id;
-                PrimaryHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.PrimaryHand).FirstOrDefault().Id;
-                OffHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.OffHand).FirstOrDefault().Id;
-                FeetString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Feet).FirstOrDefault().Id;
-                RightFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).FirstOrDefault().Id;
-                LeftFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).LastOrDefault().Id;
-            }
-            catch(Exception e)
-            { }
+          // // try
+          //  {
+          //      HeadString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Head).FirstOrDefault().Id;
+          //      NecklassString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Necklass).FirstOrDefault().Id;
+          //      PrimaryHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.PrimaryHand).FirstOrDefault().Id;
+          //      OffHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.OffHand).FirstOrDefault().Id;
+          //      FeetString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Feet).FirstOrDefault().Id;
+          //      RightFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).FirstOrDefault().Id;
+          //      LeftFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).LastOrDefault().Id;
+          //  }
+          ////  catch(Exception e)
+          //  { }
 
             var datalist = new List<CharacterModel>()
             {
