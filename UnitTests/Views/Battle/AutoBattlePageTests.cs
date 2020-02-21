@@ -47,23 +47,22 @@ namespace UnitTests.Views
             Assert.IsNotNull(result);
         }
 
-        // TODO: Mike
-        //[Test]
-        //public void AutoBattlePage_AttackButton_Clicked_Default_Should_Pass()
-        //{
-        //    // Arrange
+        [Test]
+        public void AutoBattlePage_AttackButton_Clicked_Default_Should_Pass()
+        {
+            // Arrange
 
-        //    DiceHelper.EnableRandomValues();
-        //    DiceHelper.SetForcedRandomValue(3);
-            
-        //    // Act
-        //    page.AutobattleButton_Clicked(null, null);
+            DiceHelper.EnableRandomValues();
+            DiceHelper.SetForcedRandomValue(3);
 
-        //    // Reset
-        //    DiceHelper.DisableRandomValues();
+            // Act
+            page.AutobattleButton_Clicked(null, null);
 
-        //    // Assert
-        //    Assert.IsTrue(true); // Got to here, so it happened...
-        //}
+            // Reset
+            DiceHelper.DisableRandomValues();
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
     }
 }

@@ -51,55 +51,53 @@ namespace UnitTests.Engine
             Assert.IsNotNull(result);
         }
 
-        // TODO: Mike
-        //[Test]
-        //public void AutoBattleEngine_RunAutoBattle_Default_Should_Pass()
-        //{
-        //    //Arrange
+       [Test]
+        public void AutoBattleEngine_RunAutoBattle_Default_Should_Pass()
+        {
+            //Arrange
 
-        //    DiceHelper.EnableRandomValues();
-        //    DiceHelper.SetForcedRandomValue(3);
+            DiceHelper.EnableRandomValues();
+            DiceHelper.SetForcedRandomValue(3);
 
-        //    //Act
-        //    var result = Engine.RunAutoBattle();
+            //Act
+            var result = Engine.RunAutoBattle();
 
-        //    //Reset
-        //    DiceHelper.DisableRandomValues();
+            //Reset
+            DiceHelper.DisableRandomValues();
 
-        //    //Assert
-        //    Assert.IsNotNull(result);
-        //}
+            //Assert
+            Assert.IsNotNull(result);
+        }
 
-        // Todo: Mike
-        //[Test]
-        //public void AutoBattleEngine_RunAutoBattle_Monsters_1_Should_Pass()
-        //{
-        //    //Arrange
+       [Test]
+        public void AutoBattleEngine_RunAutoBattle_Monsters_1_Should_Pass()
+        {
+            //Arrange
 
-        //    // Need to set the Monster count to 1, so the battle goes to Next Round Faster
-        //    Engine.MaxNumberPartyMonsters = 1;
-        //    Engine.MaxNumberPartyCharacters = 1;
+            // Need to set the Monster count to 1, so the battle goes to Next Round Faster
+            Engine.MaxNumberPartyMonsters = 1;
+            Engine.MaxNumberPartyCharacters = 1;
 
-        //    var CharacterPlayerMike = new PlayerInfoModel(
-        //                    new CharacterModel
-        //                    {
-        //                        Speed = -1,
-        //                        Level = 10,
-        //                        CurrentHealth = 11,
-        //                        ExperiencePoints = 1,
-        //                        Name = "Mike",
-        //                        ListOrder = 1,
-        //                    });
+            var CharacterPlayerMike = new PlayerInfoModel(
+                            new CharacterModel
+                            {
+                                Speed = -1,
+                                Level = 10,
+                                CurrentHealth = 11,
+                                ExperiencePoints = 1,
+                                Name = "Mike",
+                                ListOrder = 1,
+                            });
 
-        //    Engine.CharacterList.Add(CharacterPlayerMike);
+            Engine.CharacterList.Add(CharacterPlayerMike);
 
-        //    //Act
-        //    var result = Engine.RunAutoBattle();
+            //Act
+            var result = Engine.RunAutoBattle();
 
-        //    //Reset
+            //Reset
 
-        //    //Assert
-        //    Assert.IsNotNull(result);
-        //}
+            //Assert
+            Assert.IsNotNull(result);
+        }
     }
 }

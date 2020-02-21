@@ -49,7 +49,7 @@ namespace UnitTests.Models
             Assert.AreEqual(result.Id, result.Guid);
             Assert.AreEqual(0, result.ListOrder);
             Assert.AreEqual(0, result.Speed);
-            Assert.AreEqual(0, result.Level);
+            Assert.AreEqual(1, result.Level);
             Assert.AreEqual(0, result.ExperiencePoints);
             Assert.AreEqual(0, result.CurrentHealth);
             Assert.AreEqual(0, result.MaxHealth);
@@ -149,7 +149,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -179,7 +179,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(1, result);
         }
 
         [Test]
@@ -614,7 +614,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(7654321, result);
+            Assert.AreEqual(7654322, result);
         }
 
         [Test]
@@ -655,7 +655,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(7654321, result);
+            Assert.AreEqual(7654322, result);
         }
 
         [Test]
@@ -696,7 +696,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(7654321, result);
+            Assert.AreEqual(7654322, result);
         }
 
         [Test]

@@ -36,7 +36,7 @@ namespace Game.Models
         #region PlayerAttributes
 
         // Level of character or monster
-        public int Level { get; set; } = 0;
+        public int Level { get; set; } = 1;
 
         // The experience points the player has used in sorting ties...
         public int ExperiencePoints { get; set; } = 0;
