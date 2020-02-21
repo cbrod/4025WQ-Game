@@ -102,7 +102,7 @@ namespace Game.Views
             return ItemStack;
         }
 
-        private bool ShowPopup(ItemModel data)
+        public bool ShowPopup(ItemModel data)
         {
             PopupLoadingView.IsVisible = true;
             PopupItemImage.Source = data.ImageURI;
