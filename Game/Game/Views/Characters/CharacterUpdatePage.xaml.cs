@@ -30,6 +30,7 @@ namespace Game.Views
 
             this.ViewModel.Title = "Update " + data.Title;
 
+
             // Load the values for the Level into the Picker
             for (var i = 1; i <= LevelTableHelper.MaxLevel; i++)
             {
@@ -47,14 +48,14 @@ namespace Game.Views
         /// <param name="args"></param>
         public void Level_Changed(object sender, EventArgs args)
         {
-            var level = LevelPicker.SelectedIndex+1;
+            var level = LevelPicker.SelectedIndex + 1;
 
             // Roll the Dice and reset the Health
-            ViewModel.Data.MaxHealth = DiceHelper.RollDice(level,10);
+            ViewModel.Data.MaxHealth = DiceHelper.RollDice(level, 10);
 
-            MaxHealthValue.Text = string.Format(" : {0:G}",ViewModel.Data.MaxHealth);
+            MaxHealthValue.Text = string.Format(" : {0:G}", ViewModel.Data.MaxHealth);
         }
-        
+
         /// <summary>
         /// Save calls to Update
         /// </summary>
@@ -80,6 +81,36 @@ namespace Game.Views
         public async void Cancel_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopModalAsync();
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Attack
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Attack_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            AttackValue.Text = String.Format("{0}", e.NewValue);
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Defense
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Defense_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            DefenseValue.Text = String.Format("{0}", e.NewValue);
+        }
+
+        /// <summary>
+        /// Catch the change to the Stepper for Speed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Speed_OnStepperValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            SpeedValue.Text = String.Format("{0}", e.NewValue);
         }
     }
 }
