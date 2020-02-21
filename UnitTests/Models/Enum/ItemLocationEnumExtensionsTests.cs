@@ -116,7 +116,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual("Finger", result);
+            Assert.AreEqual("Any Finger", result);
         }
 
         [Test]
