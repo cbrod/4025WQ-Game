@@ -1,5 +1,6 @@
 ﻿using Game.Models;
 using Game.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,7 +56,7 @@ namespace Game.Services
                     Location = ItemLocationEnum.Necklass,
                     Attribute = AttributeEnum.Speed},
 
-                                new ItemModel {
+                new ItemModel {
                     Name = "Bunny Hat",
                     Description = "Pink hat with fluffy ears",
                     ImageURI = "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png",
@@ -64,7 +65,8 @@ namespace Game.Services
                     Value = 9,
                     Location = ItemLocationEnum.Finger,
                     Attribute = AttributeEnum.Speed},
-                                                new ItemModel {
+                
+                new ItemModel {
                     Name = "Bunny Hat",
                     Description = "Pink hat with fluffy ears",
                     ImageURI = "http://www.clipartbest.com/cliparts/yik/e9k/yike9kMyT.png",
@@ -98,6 +100,28 @@ namespace Game.Services
 
         public static List<CharacterModel> LoadData(CharacterModel temp)
         {
+
+            string HeadString = null;
+            string NecklassString = null;
+            string PrimaryHandString = null;
+            string OffHandString = null;
+            string FeetString = null;
+            string RightFingerString = null;
+            string LeftFingerString = null;
+
+            try
+            {
+                HeadString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Head).FirstOrDefault().Id;
+                NecklassString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Necklass).FirstOrDefault().Id;
+                PrimaryHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.PrimaryHand).FirstOrDefault().Id;
+                OffHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.OffHand).FirstOrDefault().Id;
+                FeetString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Feet).FirstOrDefault().Id;
+                RightFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).FirstOrDefault().Id;
+                LeftFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).LastOrDefault().Id;
+            }
+            catch(Exception e)
+            { }
+
             var datalist = new List<CharacterModel>()
             {
                 new CharacterModel {
@@ -106,13 +130,13 @@ namespace Game.Services
                     Level = 1,
                     MaxHealth = 5,
                     ImageURI = "knight.png",
-                    Head = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Head).FirstOrDefault().Id,
-                    Necklass = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Necklass).FirstOrDefault().Id,
-                    PrimaryHand = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.PrimaryHand).FirstOrDefault().Id,
-                    OffHand = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.OffHand).FirstOrDefault().Id,
-                    Feet = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Feet).FirstOrDefault().Id,
-                    RightFinger = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Finger).FirstOrDefault().Id,
-                    LeftFinger = ItemIndexViewModel.Instance.Dataset.Where(m=>m.Location== ItemLocationEnum.Finger).LastOrDefault().Id,
+                    Head = HeadString,
+                    Necklass = NecklassString,
+                    PrimaryHand = PrimaryHandString,
+                    OffHand = OffHandString,
+                    Feet = FeetString,
+                    RightFinger = RightFingerString,
+                    LeftFinger = LeftFingerString,
                 },
 
                 new CharacterModel {
