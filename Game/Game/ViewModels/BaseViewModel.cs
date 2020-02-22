@@ -107,9 +107,6 @@ namespace Game.ViewModels
                 CurrentDataSource = 0;
             }
 
-            // Data changed, so make sure warmed up before trying to load
-            // Helpers.DataSetsHelper.WarmUp();
-
             await LoadDefaultDataAsync();
 
             // Set Flag for Refresh
@@ -138,7 +135,7 @@ namespace Game.ViewModels
                 Dataset.Clear();
 
                 // Load the Data from the DataStore
-                await ExecuteLoadDataCommand();
+                await LoadDataFromIndexAsync();
             }
 
             // If data exists, do not run
@@ -186,18 +183,7 @@ namespace Game.ViewModels
 
             try
             {
-                Dataset.Clear();
-                var dataset = await DataStore.IndexAsync();
-
-                // Example of how to sort the database output using a linq query.
-                // Sort the list
-                dataset = SortDataset(dataset);
-
-                foreach (var data in dataset)
-                {
-                    // Make a Copy of the Item Model to add to the List
-                    Dataset.Add(data);
-                }
+                await LoadDataFromIndexAsync();
             }
             catch (Exception ex)
             {
@@ -206,6 +192,26 @@ namespace Game.ViewModels
             finally
             {
                 IsBusy = false;
+            }
+        }
+
+        /// <summary>
+        /// Load the Data from the Index Call into the Data List
+        /// </summary>
+        /// <returns></returns>
+        public async Task LoadDataFromIndexAsync()
+        {
+            Dataset.Clear();
+            var dataset = await DataStore.IndexAsync();
+
+            // Example of how to sort the database output using a linq query.
+            // Sort the list
+            dataset = SortDataset(dataset);
+
+            foreach (var data in dataset)
+            {
+                // Make a Copy of the Item Model to add to the List
+                Dataset.Add(data);
             }
         }
 
@@ -300,11 +306,9 @@ namespace Game.ViewModels
             await DataStore.WipeDataListAsync();
 
             // Load the Sample Data
-            await LoadDefaultDataAsync();
+            var result = await LoadDefaultDataAsync();
 
-            SetNeedsRefresh(true);
-
-            return await Task.FromResult(true);
+            return result;
         }
 
         /// <summary>
