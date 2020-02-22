@@ -1,4 +1,5 @@
-﻿using Game.Models;
+﻿using Game.Helpers;
+using Game.Models;
 using Game.Services;
 using System;
 using System.Collections.Generic;
@@ -107,7 +108,7 @@ namespace Game.ViewModels
             }
 
             // Data changed, so make sure warmed up before trying to load
-            Helpers.DataSetsHelper.WarmUp();
+            // Helpers.DataSetsHelper.WarmUp();
 
             await LoadDefaultDataAsync();
 
@@ -267,13 +268,32 @@ namespace Game.ViewModels
         }
 
         #endregion Refresh
-        
+
         #region DataSourceManagement
+
+        /// <summary>
+        /// The Wipe Data comes in from multiple Messages one from each view model
+        /// The user can also click the Wipe button quickly
+        /// 
+        /// So need a way to control the wipe so it does not overlap
+        /// 
+        /// First call up to the shared Helper so wipe wipes all data sets, not just the message that came in
+        /// This will ensure the wipe happens in the correct sequence.
+        /// 
+        /// Then the helper will call to the BaseView to wipe just its data
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> WipeDataListAsync()
+        {
+            var result =  await DataSetsHelper.WipeDataInSequence();
+
+            return result;
+        }
 
         /// <summary>
         /// Wipes the current Data from the Data Store
         /// </summary>
-        public async Task<bool> WipeDataListAsync()
+        public async Task<bool> DataStoreWipeDataListAsync()
         {
             Dataset.Clear();
 

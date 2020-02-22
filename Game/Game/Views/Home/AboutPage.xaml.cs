@@ -1,4 +1,5 @@
-﻿using Game.Models;
+﻿using Game.Helpers;
+using Game.Models;
 using Game.Services;
 
 using System;
@@ -88,7 +89,8 @@ namespace Game.Views
 
             if (answer)
             {
-                MessagingCenter.Send(this, "WipeDataList", true);
+                await DataSetsHelper.WipeDataInSequence();
+                // MessagingCenter.Send(this, "WipeDataList", true);
             }
         }
 

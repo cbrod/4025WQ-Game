@@ -1,4 +1,6 @@
 ﻿using Game.ViewModels;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Game.Helpers
@@ -14,13 +16,36 @@ namespace Game.Helpers
             return true;
         }
 
-        static public async Task<bool> WipeData()
-        {
-            await ScoreIndexViewModel.Instance.WipeDataListAsync();
-            await ItemIndexViewModel.Instance.WipeDataListAsync();
-            await CharacterIndexViewModel.Instance.WipeDataListAsync();
+        private static readonly object WipeLock = new object();
 
-            return true;
+        /// <summary>
+        /// Call the Wipe routines in order one by one
+        /// </summary>
+        /// <returns></returns>
+        static public async Task<bool> WipeDataInSequence()
+        {
+            lock (WipeLock)
+            {
+                var runSyncScore = Task.Factory.StartNew(new Func<Task>(async () =>
+                {
+                    await ScoreIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                })).Unwrap();
+                runSyncScore.Wait();
+
+                var runSyncItem = Task.Factory.StartNew(new Func<Task>(async () =>
+                {
+                    await ItemIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                })).Unwrap();
+                runSyncItem.Wait();
+
+                var runSyncCharacter = Task.Factory.StartNew(new Func<Task>(async () =>
+                {
+                    await CharacterIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                })).Unwrap();
+                runSyncCharacter.Wait();
+            }
+
+            return await Task.FromResult(true);
         }
     }
 }

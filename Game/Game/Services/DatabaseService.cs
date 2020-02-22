@@ -122,33 +122,41 @@ namespace Game.Services
             return await Task.FromResult(NeedsInitialization);
         }
 
+        private static readonly object WipeLock = new object();
+
         /// <summary>
         /// Wipe Data List
         /// Drop the tables and create new ones
+        /// 
+        /// Put a Lock on the Call, so it must complete
+        /// Then others can wipe
+        /// 
+        /// This prevents two attempts to wipe the database at the same time
+        /// 
         /// </summary>
         public async Task<bool> WipeDataListAsync()
         {
-            await semaphoreSlim.WaitAsync();
-            try
-            {
-                GetForceExceptionCount();
+            bool result = false;
 
-                NeedsInitialization = true;
-
-                await Database.DropTableAsync<T>();
-                await Database.CreateTablesAsync(CreateFlags.None, typeof(T));
-            }
-            catch (Exception e)
+            lock (WipeLock)
             {
-                Debug.WriteLine("Error WipeData" + e.Message);
-                return await Task.FromResult(false);
-            }
-            finally
-            {
-                semaphoreSlim.Release();
-            }
+                try
+                {
+                    GetForceExceptionCount();
 
-            return await Task.FromResult(true);
+                    NeedsInitialization = true;
+
+                    Database.DropTableAsync<T>().Wait();
+                    Database.CreateTablesAsync(CreateFlags.None, typeof(T)).Wait();
+                    result = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error WipeData" + e.Message);
+                    result = false;
+                }
+            }
+            return await Task.FromResult(result);
         }
 
         /// <summary>
