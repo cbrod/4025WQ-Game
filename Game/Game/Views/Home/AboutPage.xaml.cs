@@ -5,7 +5,7 @@ using Game.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -89,8 +89,8 @@ namespace Game.Views
 
             if (answer)
             {
-                await DataSetsHelper.WipeDataInSequence();
-                // MessagingCenter.Send(this, "WipeDataList", true);
+               Task.Run(async ()=> { await DataSetsHelper.WipeDataInSequence(); });
+               //MessagingCenter.Send(this, "WipeDataList", true);
             }
         }
 
