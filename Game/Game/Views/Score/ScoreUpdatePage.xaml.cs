@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 using Game.ViewModels;
 using Game.Models;
 
@@ -10,6 +13,7 @@ namespace Game.Views
     /// Score Update Page
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScoreUpdatePage : ContentPage
     {
         // View Model for Score

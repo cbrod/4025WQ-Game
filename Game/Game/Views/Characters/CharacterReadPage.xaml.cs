@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 using Game.ViewModels;
-using System;
 using Game.Models;
-using System.Threading.Tasks;
 using Game.Helpers;
 
 namespace Game.Views
@@ -12,6 +13,7 @@ namespace Game.Views
     /// The Read Page
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CharacterReadPage : ContentPage
     {
         // View Model for Character
@@ -112,6 +114,11 @@ namespace Game.Views
             PopupItemLocation.Text = data.Location.ToMessage();
             PopupItemAttribute.Text = data.Attribute.ToMessage();
             PopupItemValue.Text = " + " +data.Value.ToString();
+
+            // Close the popup after 3 seconds
+            Device.StartTimer(TimeSpan.FromSeconds(3), () => { 
+                    PopupLoadingView.IsVisible = false;
+                    return true; }); 
 
             return true;
         }

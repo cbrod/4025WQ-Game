@@ -1,7 +1,10 @@
 ﻿using Game.Models;
+
 using System.Collections.Generic;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
@@ -9,6 +12,7 @@ namespace Game.Views
     /// Menu Page
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
         public MainPage RootPage { get => Application.Current.MainPage as MainPage; }

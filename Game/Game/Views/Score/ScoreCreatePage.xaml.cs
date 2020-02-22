@@ -1,8 +1,11 @@
 ﻿using Game.Models;
 using Game.ViewModels;
+
 using System;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
@@ -10,6 +13,7 @@ namespace Game.Views
     /// Create Item
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScoreCreatePage : ContentPage
     {
         // The item to create

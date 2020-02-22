@@ -1,10 +1,13 @@
 ﻿using Game.Helpers;
 using Game.Models;
 using Game.ViewModels;
+
 using System;
 using System.ComponentModel;
 using System.Linq;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
@@ -12,6 +15,7 @@ namespace Game.Views
     /// Create Character
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CharacterCreatePage : ContentPage
     {
         // The Character to create

@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 using Game.ViewModels;
-using System;
 using Game.Models;
 
 namespace Game.Views
@@ -9,7 +11,8 @@ namespace Game.Views
     /// <summary>
     /// The Read Page
     /// </summary>
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(false)] 
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScoreDeletePage : ContentPage
     {
         // View Model for Item

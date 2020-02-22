@@ -1,15 +1,19 @@
 ﻿using Game.Models;
 using Game.ViewModels;
+
 using System;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
     /// <summary>
     /// Create Item
     /// </summary>
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(false)] 
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemCreatePage : ContentPage
     {
         // The item to create

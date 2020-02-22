@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 using Game.Models;
 using Game.ViewModels;
 
@@ -10,7 +13,8 @@ namespace Game.Views
     /// Index Page
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0019:Use pattern matching", Justification = "<Pending>")]
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(false)] 
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ItemIndexPage : ContentPage
     {
         // The view model, used for data binding

@@ -1,6 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
 using Game.ViewModels;
 using Game.Models;
 using Game.Helpers;
@@ -11,6 +14,7 @@ namespace Game.Views
     /// Character Update Page
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CharacterUpdatePage : ContentPage
     {
         // View Model for Character

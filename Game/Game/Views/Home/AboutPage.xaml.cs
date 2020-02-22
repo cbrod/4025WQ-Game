@@ -1,9 +1,12 @@
 ﻿using Game.Models;
 using Game.Services;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
@@ -11,6 +14,7 @@ namespace Game.Views
     /// About Page
     /// </summary>
     [DesignTimeVisible(false)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AboutPage : ContentPage
     {
         // Constructor for UnitTests

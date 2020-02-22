@@ -1,15 +1,19 @@
 ﻿using Game.Models;
+
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Game.Views
 {
     /// <summary>
     /// Main Page
     /// </summary>
-    [DesignTimeVisible(false)]
+    [DesignTimeVisible(false)] 
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
         // Collection of Navigation Pages
