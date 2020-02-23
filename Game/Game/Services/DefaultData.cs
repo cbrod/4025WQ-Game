@@ -292,10 +292,25 @@ namespace Game.Services
             {
                 new CharacterModel {
                     Name = "Mike",
-                    Description = "Warrior Wannabe",
+                    Description = "Archer Wannabe",
                     Level = 1,
                     MaxHealth = 5,
-                    ImageURI = "knight.png",
+                    ImageURI = "elf1.png",
+                    Head = HeadString,
+                    Necklass = NecklassString,
+                    PrimaryHand = PrimaryHandString,
+                    OffHand = OffHandString,
+                    Feet = FeetString,
+                    RightFinger = RightFingerString,
+                    LeftFinger = LeftFingerString,
+                },
+
+                new CharacterModel {
+                    Name = "Tim",
+                    Description = "Hawk eye",
+                    Level = 1,
+                    MaxHealth = 5,
+                    ImageURI = "elf2.png",
                     Head = HeadString,
                     Necklass = NecklassString,
                     PrimaryHand = PrimaryHandString,
@@ -307,10 +322,10 @@ namespace Game.Services
 
                 new CharacterModel {
                     Name = "Doug",
-                    Description = "Cleric in training",
+                    Description = "Warrior in training",
                     Level = 1,
                     MaxHealth = 8,
-                    ImageURI = "knight.png",
+                    ImageURI = "elf4.png",
                     Head = HeadString,
                     Necklass = NecklassString,
                     PrimaryHand = PrimaryHandString,
@@ -325,15 +340,31 @@ namespace Game.Services
                     Description = "A strong Warrior",
                     Level = 4,
                     MaxHealth = 38,
-                    ImageURI = "knight.png"
+                    ImageURI = "elf3.png"
                 },
 
                 new CharacterModel {
                     Name = "Jea",
+                    Description = "Come and get me",
+                    Level = 5,
+                    MaxHealth = 43,
+                    ImageURI = "elf5.png"
+                },
+
+                new CharacterModel {
+                    Name = "Darren",
+                    Description = "The Wiz",
+                    Level = 5,
+                    MaxHealth = 43,
+                    ImageURI = "elf6.png"
+                },
+
+                new CharacterModel {
+                    Name = "Dani",
                     Description = "A powerfull Cleric",
                     Level = 5,
                     MaxHealth = 43,
-                    ImageURI = "knight.png"
+                    ImageURI = "elf7.png"
                 }
             };
 
