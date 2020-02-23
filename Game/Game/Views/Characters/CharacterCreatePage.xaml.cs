@@ -238,7 +238,7 @@ namespace Game.Views
             var ItemLabel = new Label
             {
                 Text = location.ToMessage(),
-                Style = (Style)Application.Current.Resources["ValueStyle"],
+                Style = (Style)Application.Current.Resources["ValueStyleMicro"],
                 HorizontalOptions = LayoutOptions.Center,
                 HorizontalTextAlignment = TextAlignment.Center
             };
