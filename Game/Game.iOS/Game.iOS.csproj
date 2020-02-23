@@ -205,7 +205,7 @@
     <BundleResource Include="Resources\items.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\dice_20.png" />
+    <BundleResource Include="Resources\d20_2.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\icon_new.png" />
@@ -323,5 +323,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\elf3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\d10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\d20.png" />
   </ItemGroup>
 </Project>
