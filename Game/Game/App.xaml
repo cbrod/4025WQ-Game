@@ -106,6 +106,15 @@
             </Style>
 
             <Style TargetType="Label"
+                x:Key="ValueStyleMicro"
+                BasedOn="{StaticResource ValueStyle}">
+                <Setter Property="FontSize" Value="Micro" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+            </Style>
+            
+            
+            <Style TargetType="Label"
                 x:Key="MessageStyle"
                 BasedOn="{StaticResource HeaderStyle}">
                 <Setter Property="TextColor" Value="{StaticResource TriciaryTextColor}" />
@@ -156,8 +165,8 @@
             <Style TargetType="Image"
                 x:Key="ImageMediumStyle"
                 BasedOn="{StaticResource ImageLargeStyle}">
-                <Setter Property="WidthRequest" Value="60" />
-                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="HeightRequest" Value="50" />
             </Style>
 
             <Style TargetType="Image"
@@ -218,7 +227,7 @@
                 x:Key="ItemImageBox"
                 BasedOn="{StaticResource CardImageTextBox}">
                 <Setter Property="HeightRequest" Value="100" />
-                <Setter Property="WidthRequest" Value="100" />
+                <Setter Property="WidthRequest" Value="80" />
             </Style>
 
             <!-- Frame -->
