@@ -29,18 +29,22 @@ namespace Game.Helpers
                 var runSyncScore = Task.Factory.StartNew(new Func<Task>(async () =>
                 {
                     await ScoreIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                    await Task.Delay(100);
                 })).Unwrap();
                 runSyncScore.Wait();
+                
 
                 var runSyncItem = Task.Factory.StartNew(new Func<Task>(async () =>
                 {
                     await ItemIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                    await Task.Delay(100);
                 })).Unwrap();
                 runSyncItem.Wait();
 
                 var runSyncCharacter = Task.Factory.StartNew(new Func<Task>(async () =>
                 {
                     await CharacterIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                    await Task.Delay(100);
                 })).Unwrap();
                 runSyncCharacter.Wait();
             }
