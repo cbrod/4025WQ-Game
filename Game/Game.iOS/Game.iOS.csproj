@@ -213,4 +213,115 @@
   <ItemGroup>
     <BundleResource Include="Resources\home_background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\feet1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\feet2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\hat1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\hat2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\neck1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\neck2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\potion1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ring1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ring2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\shield1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\shield2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\shield3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\shield4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\sword11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\troll6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\elf3.png" />
+  </ItemGroup>
 </Project>
