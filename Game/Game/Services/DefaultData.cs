@@ -65,7 +65,7 @@ namespace Game.Services
                     Value = 9,
                     Location = ItemLocationEnum.Finger,
                     Attribute = AttributeEnum.Speed},
-                
+
                 new ItemModel {
                     Name = "Bunny Hat",
                     Description = "Pink hat with fluffy ears",
@@ -100,50 +100,15 @@ namespace Game.Services
 
         public static List<CharacterModel> LoadData(CharacterModel temp)
         {
-            string HeadString = null;
-            string NecklassString = null;
-            string PrimaryHandString = null;
-            string OffHandString = null;
-            string FeetString = null;
-            string RightFingerString = null;
-            string LeftFingerString = null;
+            var HeadString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Head);
+            var NecklassString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Necklass);
+            var PrimaryHandString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.PrimaryHand);
+            var OffHandString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.OffHand);
+            var FeetString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Feet);
+            var RightFingerString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Finger);
+            var LeftFingerString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Finger);
 
-            try
-            {
-                HeadString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Head).FirstOrDefault().Id;
-            }catch (Exception e) { }
-
-            try
-            {
-                NecklassString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Necklass).FirstOrDefault().Id;
-            }catch (Exception e) { }
-
-            try
-            {
-                PrimaryHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.PrimaryHand).FirstOrDefault().Id;
-            }catch (Exception e) { }
-
-            try
-            {
-                OffHandString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.OffHand).FirstOrDefault().Id;
-            }catch (Exception e) { }
-            
-            try
-            {
-                FeetString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Feet).FirstOrDefault().Id;
-            }catch (Exception e) { }
-            
-            try
-            {
-                RightFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).FirstOrDefault().Id;
-            }catch (Exception e) { }
-            
-            try
-            {
-                LeftFingerString = ItemIndexViewModel.Instance.Dataset.Where(m => m.Location == ItemLocationEnum.Finger).LastOrDefault().Id;
-            }catch(Exception e){ }
-
-    var datalist = new List<CharacterModel>()
+            var datalist = new List<CharacterModel>()
             {
                 new CharacterModel {
                     Name = "Mike",
@@ -165,7 +130,14 @@ namespace Game.Services
                     Description = "Cleric in training",
                     Level = 1,
                     MaxHealth = 8,
-                    ImageURI = "knight.png"
+                    ImageURI = "knight.png",
+                    Head = HeadString,
+                    Necklass = NecklassString,
+                    PrimaryHand = PrimaryHandString,
+                    OffHand = OffHandString,
+                    Feet = FeetString,
+                    RightFinger = RightFingerString,
+                    LeftFinger = LeftFingerString,
                 },
 
                 new CharacterModel {
