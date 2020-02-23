@@ -13,7 +13,7 @@ namespace UnitTests.Models
         [TearDown]
         public async Task TearDown()
         {
-            await Game.Helpers.DataSetsHelper.WipeData();
+            await Game.Helpers.DataSetsHelper.WipeDataInSequence();
         }
 
         [Test]
