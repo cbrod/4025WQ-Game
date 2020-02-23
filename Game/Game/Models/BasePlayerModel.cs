@@ -478,44 +478,37 @@ namespace Game.Models
         // Puts the ItemModel ID as a string in the location slot
         // If ItemModel is null, then puts null in the slot
         // Returns the ItemModel that was in the location
-        public ItemModel AddItem(ItemLocationEnum itemlocation, string itemID)
+        public ItemModel AddItem(ItemLocationEnum itemLocation, string itemID)
         {
-            ItemModel myReturn;
+            var myReturn = GetItemByLocation(itemLocation);
 
-            switch (itemlocation)
+            switch (itemLocation)
             {
                 case ItemLocationEnum.Feet:
-                    myReturn = GetItem(Feet);
                     Feet = itemID;
                     break;
 
                 case ItemLocationEnum.Head:
-                    myReturn = GetItem(Head);
                     Head = itemID;
                     break;
 
                 case ItemLocationEnum.Necklass:
-                    myReturn = GetItem(Necklass);
                     Necklass = itemID;
                     break;
 
                 case ItemLocationEnum.PrimaryHand:
-                    myReturn = GetItem(PrimaryHand);
                     PrimaryHand = itemID;
                     break;
 
                 case ItemLocationEnum.OffHand:
-                    myReturn = GetItem(OffHand);
                     OffHand = itemID;
                     break;
 
                 case ItemLocationEnum.RightFinger:
-                    myReturn = GetItem(RightFinger);
                     RightFinger = itemID;
                     break;
 
                 case ItemLocationEnum.LeftFinger:
-                    myReturn = GetItem(LeftFinger);
                     LeftFinger = itemID;
                     break;
 
