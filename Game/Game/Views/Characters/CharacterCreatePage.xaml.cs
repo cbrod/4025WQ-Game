@@ -3,6 +3,7 @@ using Game.Models;
 using Game.ViewModels;
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
@@ -159,9 +160,30 @@ namespace Game.Views
             PopupLocationLabel.Text = "Items for :";
             PopupLocationValue.Text = location.ToMessage();
 
-            PopupLocationItemListView.ItemsSource = ItemIndexViewModel.Instance.GetLocationItems(location);
+            // Make a fake item for None
+            var NoneItem = new ItemModel
+            {
+                Id = null, // will use null to clear the item
+                Guid = "None", // how to find this item amoung all of them
+                ImageURI = "icon_cancel.png",
+                Name = "None",
+                Description = "None"
+            };
 
+            List<ItemModel> itemList = new List<ItemModel>
+            {
+                NoneItem
+            };
+
+            // Add the rest of the items to the list
+            itemList.AddRange(ItemIndexViewModel.Instance.GetLocationItems(location));
+
+            // Populate the list with the items
+            PopupLocationItemListView.ItemsSource = itemList;
+
+            // Remember the location for this popup
             PopupLocationEnum = location;
+
             return true;
         }
 
