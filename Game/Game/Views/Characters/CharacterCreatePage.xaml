@@ -68,38 +68,38 @@
                         Style="{StaticResource EntryStyle}"/>
 
                         <Label Grid.Row="2" Grid.Column="0"
-                        Text="Level" 
-                        Style="{StaticResource LabelStyle}"/>
+                            Text="Image" 
+                            Style="{StaticResource LabelStyle}"/>
 
-                        <Picker Grid.Row="2" Grid.Column="1"
-                        SelectedItem="{Binding Data.Level, Mode=TwoWay}" 
-                        SelectedIndexChanged="Level_Changed"
-                        x:Name="LevelPicker"/>
+                            <StackLayout Grid.Row="2" Grid.Column="1" Style="{StaticResource HorizontalStack}" HorizontalOptions="FillAndExpand">
 
+                                <Image 
+                                    Source="{Binding Data.ImageURI}"
+                                    Style="{StaticResource ImageSmallStyle}"/>
+
+                                <Entry 
+                                    Text="{Binding Data.ImageURI}" 
+                                    Style="{StaticResource EntryStyle}"/>
+
+                            </StackLayout>
+                        
                         <Label Grid.Row="3" Grid.Column="0"
-                        Text="Max Health" 
-                        Style="{StaticResource LabelStyle}"/>
+                                Text="Level" 
+                                Style="{StaticResource LabelStyle}"/>
 
-                        <Label Grid.Row="3" Grid.Column="1"
-                        x:Name="MaxHealthValue"
-                        Text=""
-                        Style="{StaticResource ValueStyle}"/>
+                        <Picker Grid.Row="3" Grid.Column="1"
+                                SelectedItem="{Binding Data.Level, Mode=TwoWay}" 
+                                SelectedIndexChanged="Level_Changed"
+                                x:Name="LevelPicker"/>
 
                         <Label Grid.Row="4" Grid.Column="0"
-                        Text="Image" 
-                        Style="{StaticResource LabelStyle}"/>
+                                Text="Max Health" 
+                                Style="{StaticResource LabelStyle}"/>
 
-                        <StackLayout Grid.Row="4" Grid.Column="1" Style="{StaticResource HorizontalStack}" HorizontalOptions="FillAndExpand">
-
-                            <Image 
-                            Source="{Binding Data.ImageURI}"
-                            Style="{StaticResource ImageSmallStyle}"/>
-
-                            <Entry 
-                            Text="{Binding Data.ImageURI}" 
-                            Style="{StaticResource EntryStyle}"/>
-
-                        </StackLayout>
+                        <Label Grid.Row="4" Grid.Column="1"
+                                x:Name="MaxHealthValue"
+                                Text=""
+                                Style="{StaticResource ValueStyle}"/>
                     </Grid>
 
                     <StackLayout Style="{StaticResource VerticalStack}" HorizontalOptions="FillAndExpand">
@@ -165,6 +165,13 @@
                         </StackLayout>
                     </StackLayout>
 
+                        <StackLayout>
+                            <ImageButton 
+                                x:Name="RollDice"
+                                Style="{StaticResource ImageMediumStyle}"
+                                Source="d10.png"
+                                Clicked="RollDice_Clicked"></ImageButton>
+                        </StackLayout>
 
                         <FlexLayout 
                         Padding="5"

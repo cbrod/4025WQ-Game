@@ -6,7 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -278,6 +279,51 @@ namespace Game.Views
             };
 
             return ItemStack;
+        }
+
+        /// <summary>
+        /// Randomize Character Values and Items
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public async void RollDice_Clicked(object sender, EventArgs e)
+        {
+
+            ImageButton image = RollDice;
+            uint duration = 1000;
+
+            var parentAnimation = new Animation();
+            var scaleUpAnimation = new Animation(v => image.Scale = v, 1, 2, Easing.SpringIn);
+            var rotateAnimation = new Animation(v => image.Rotation = v, 0, 360);
+            var scaleDownAnimation = new Animation(v => image.Scale = v, 2, 1, Easing.SpringOut);
+
+
+            parentAnimation.Add(0, 0.5, scaleUpAnimation);
+            parentAnimation.Add(0, 1, rotateAnimation);
+            parentAnimation.Add(0.5, 1, scaleDownAnimation);
+
+            parentAnimation.Commit(this, "ChildAnimations", 16, duration, null, null);
+
+
+            //await image.TranslateTo(-100, 0, 1000);    // Move image left
+            //await image.TranslateTo(-100, -100, 1000); // Move image up
+            //await image.TranslateTo(100, 100, 2000);   // Move image diagonally down and right
+            //await image.TranslateTo(0, 100, 1000);     // Move image left
+            //await image.TranslateTo(0, 0, 1000);       // Move image up
+
+
+
+            //image.ScaleTo(2, duration);
+
+            //await Task.WhenAll(
+            //  image.RotateTo(307 * 360, duration),
+            //  image.RotateXTo(251 * 360, duration),
+            //  image.RotateYTo(199 * 360, duration)
+            //);
+
+            //image.ScaleTo(1);
+
+            return;   
         }
     }
 }
