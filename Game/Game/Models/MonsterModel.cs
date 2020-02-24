@@ -19,6 +19,7 @@
             Name = "Troll";
             Description = "Angry Troll";
             Attack = 100;
+            Difficulty = DifficultyEnum.Average;
         }
     }
 }
