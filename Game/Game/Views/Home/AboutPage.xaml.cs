@@ -99,7 +99,7 @@ namespace Game.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void GetItemsGet_Command(object sender, EventArgs e)
+        public async void GetItemsGet_Command(object sender, EventArgs e)
         {
             var result = await GetItemsGet();
             await DisplayAlert("Returned List", result, "OK");
@@ -148,7 +148,7 @@ namespace Game.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void GetItemsPost_Command(object sender, EventArgs e)
+        public async void GetItemsPost_Command(object sender, EventArgs e)
         {
             var result = await GetItemsPost();
             await DisplayAlert("Returned List", result, "OK");

@@ -205,7 +205,7 @@ namespace UnitTests.Views
         }
 
         [Test]
-        public async Task AboutPage_GetItemsGet_Clicked_Default_Should_Pass()
+        public async Task AboutPage_GetItemsGet_Default_Should_Pass()
         {
             // Arrange
             // Act
@@ -214,11 +214,11 @@ namespace UnitTests.Views
             // Reset
 
             // Assert
-            Assert.AreNotEqual("No Results",result); // Got to here, so it happened...
+            Assert.AreNotEqual("No Results", result); // Got to here, so it happened...
         }
 
         [Test]
-        public async Task AboutPage_GetItemsPost_Clicked_Default_Should_Pass()
+        public async Task AboutPage_GetItemsPost_Default_Should_Pass()
         {
             // Arrange
             // Act
@@ -228,6 +228,34 @@ namespace UnitTests.Views
 
             // Assert
             Assert.AreNotEqual("No Results", result); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void AboutPage_GetItemsGet_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+            
+            // Act
+            page.GetItemsGet_Command(null,null);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true,true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void AboutPage_GetItemsPost_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.GetItemsPost_Command(null, null);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, true); // Got to here, so it happened...
         }
     }
 }
