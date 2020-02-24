@@ -23,6 +23,17 @@ namespace Game.Helpers
         /// Get A Random Difficulty
         /// </summary>
         /// <returns></returns>
+        public static string GetMonsterUniqueItem()
+        {
+            var result = ItemIndexViewModel.Instance.Dataset.ElementAt(DiceHelper.RollDice(1, ItemIndexViewModel.Instance.Dataset.Count()) - 1).Id;
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get A Random Difficulty
+        /// </summary>
+        /// <returns></returns>
         public static DifficultyEnum GetMonsterDifficultyValue()
         {
             var DifficultyList = DifficultyEnumHelper.GetListMonster;

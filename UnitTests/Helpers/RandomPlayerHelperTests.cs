@@ -2,6 +2,8 @@
 
 using Game.Helpers;
 using Game.Models;
+using Game.ViewModels;
+using System.Linq;
 
 namespace UnitTests.Helpers
 {
@@ -195,5 +197,24 @@ namespace UnitTests.Helpers
             Assert.AreEqual("elf2.png", result);
         }
 
+        [Test]
+        public void RandomPlayerHelper_GetMonsterUniqueItem_2_Should_Return_2()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+
+            var expected = ItemIndexViewModel.Instance.Dataset.ElementAt(1).Id;
+
+            // Act
+            var result = RandomPlayerHelper.GetMonsterUniqueItem();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual(expected, result);
+        }
     }
 }
