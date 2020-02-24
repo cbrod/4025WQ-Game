@@ -112,18 +112,11 @@ namespace Game.Views
         /// <returns></returns>
         public StackLayout GetItemToDisplay()
         {
-            // Defualt Image is the Plus
-            var ImageSource = "icon_cancel.png";
-            var ClickableButton = true;
-
             var data = ViewModel.Data.GetItem(ViewModel.Data.UniqueItem);
             if (data == null)
             {
                 // Show the Default Icon for the Location
-                data = new ItemModel { Location = ItemLocationEnum.Unknown, ImageURI = ImageSource };
-
-                // Turn off click action
-                ClickableButton = false;
+                data = new ItemModel { Location = ItemLocationEnum.Unknown, ImageURI = "icon_cancel.png" };
             }
 
             // Hookup the Image Button to show the Item picture
@@ -133,11 +126,8 @@ namespace Game.Views
                 Source = data.ImageURI
             };
 
-            if (ClickableButton)
-            {
-                // Add a event to the user can click the item and see more
-                ItemButton.Clicked += (sender, args) => ShowPopup(data);
-            }
+            // Add a event to the user can click the item and see more
+            ItemButton.Clicked += (sender, args) => ShowPopup(data);
 
             // Add the Display Text for the item
             var ItemLabel = new Label
