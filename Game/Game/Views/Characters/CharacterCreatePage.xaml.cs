@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,8 +35,7 @@ namespace Game.Views
             InitializeComponent();
 
             data.Data = new CharacterModel();
-
-            BindingContext = this.ViewModel = data;
+            this.ViewModel = data;
 
             this.ViewModel.Title = "Create";
 
@@ -48,12 +45,34 @@ namespace Game.Views
                 LevelPicker.Items.Add(i.ToString());
             }
 
-            MaxHealthValue.Text = string.Format(" : {0:G}", ViewModel.Data.MaxHealth);
-
-            //LevelPicker.SelectedIndex = data.Data.Level - 1;
-            LevelPicker.SelectedItem = LevelPicker.Items.First();
+            this.ViewModel.Data.Level = 1;
+            // LevelPicker.SelectedIndex = ViewModel.Data.Level - 1;
 
             AddItemsToDisplay();
+
+            UpdatePageBindingContext();
+        }
+
+        /// <summary>
+        /// Redo the Binding to cause a refresh
+        /// </summary>
+        /// <returns></returns>
+        public bool UpdatePageBindingContext()
+        {
+            // Temp store off the Level
+            var level = this.ViewModel.Data.Level; 
+            
+            // Clear the Binding and reset it
+            BindingContext = null;
+            BindingContext = this.ViewModel;
+
+            // This resets the Picker to -1 index, need to reset it back
+            ViewModel.Data.Level = level;
+            LevelPicker.SelectedIndex = ViewModel.Data.Level-1;
+
+            ManageHealth();
+
+            return true;
         }
 
         /// <summary>
@@ -64,12 +83,22 @@ namespace Game.Views
         /// <param name="args"></param>
         public void Level_Changed(object sender, EventArgs args)
         {
-            var level = LevelPicker.SelectedIndex + 1;
+            // Change the Level
+            ViewModel.Data.Level = LevelPicker.SelectedIndex + 1;
 
-            // Roll the Dice and reset the Health
-            ViewModel.Data.MaxHealth = DiceHelper.RollDice(level, 10);
+            ManageHealth();
+        }
 
-            MaxHealthValue.Text = string.Format(" : {0:G}", ViewModel.Data.MaxHealth);
+        /// <summary>
+        /// Change the Level Picker
+        /// </summary>
+        public void ManageHealth()
+        {
+            // Roll for new HP
+            ViewModel.Data.MaxHealth = RandomPlayerHelper.GetHealth(ViewModel.Data.Level);
+
+            // Show the Result
+            MaxHealthValue.Text = ViewModel.Data.MaxHealth.ToString();
         }
 
         /// <summary>
@@ -288,15 +317,67 @@ namespace Game.Views
         /// <param name="e"></param>
         public async void RollDice_Clicked(object sender, EventArgs e)
         {
+            DiceAnimationHandeler();
 
+            RandomizeCharacter();
+
+            // Randomize HP
+
+            // Randomize Name
+
+            // Update each of the the Items with Random Items
+
+            return;   
+        }
+
+        public bool RandomizeCharacter()
+        {
+            // Randomize Name
+            ViewModel.Data.Name = RandomPlayerHelper.GetName();
+            ViewModel.Data.Description = RandomPlayerHelper.GetDescription();
+
+            // Randomize the Attributes
+            ViewModel.Data.Attack = RandomPlayerHelper.GetAbilityValue();
+            ViewModel.Data.Speed = RandomPlayerHelper.GetAbilityValue();
+            ViewModel.Data.Defense = RandomPlayerHelper.GetAbilityValue();
+
+            // Randomize an Item for Location
+            ViewModel.Data.Head = RandomPlayerHelper.GetItem(ItemLocationEnum.Head);
+            ViewModel.Data.Necklass= RandomPlayerHelper.GetItem(ItemLocationEnum.Necklass);
+            ViewModel.Data.PrimaryHand = RandomPlayerHelper.GetItem(ItemLocationEnum.PrimaryHand);
+            ViewModel.Data.OffHand= RandomPlayerHelper.GetItem(ItemLocationEnum.OffHand);
+            ViewModel.Data.RightFinger = RandomPlayerHelper.GetItem(ItemLocationEnum.Finger);
+            ViewModel.Data.LeftFinger= RandomPlayerHelper.GetItem(ItemLocationEnum.Finger);
+            ViewModel.Data.Feet= RandomPlayerHelper.GetItem(ItemLocationEnum.Feet);
+
+            ViewModel.Data.MaxHealth = RandomPlayerHelper.GetHealth(ViewModel.Data.Level);
+
+            UpdatePageBindingContext();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Setup the Dice Animation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public bool DiceAnimationHandeler()
+        {
+            // Animate the Rolling of the Dice
             ImageButton image = RollDice;
             uint duration = 1000;
 
             var parentAnimation = new Animation();
-            var scaleUpAnimation = new Animation(v => image.Scale = v, 1, 2, Easing.SpringIn);
-            var rotateAnimation = new Animation(v => image.Rotation = v, 0, 360);
-            var scaleDownAnimation = new Animation(v => image.Scale = v, 2, 1, Easing.SpringOut);
 
+            // Grow the image Size
+            var scaleUpAnimation = new Animation(v => image.Scale = v, 1, 2, Easing.SpringIn);
+
+            // Spin the Image
+            var rotateAnimation = new Animation(v => image.Rotation = v, 0, 360);
+
+            // Shrink the Image
+            var scaleDownAnimation = new Animation(v => image.Scale = v, 2, 1, Easing.SpringOut);
 
             parentAnimation.Add(0, 0.5, scaleUpAnimation);
             parentAnimation.Add(0, 1, rotateAnimation);
@@ -304,26 +385,7 @@ namespace Game.Views
 
             parentAnimation.Commit(this, "ChildAnimations", 16, duration, null, null);
 
-
-            //await image.TranslateTo(-100, 0, 1000);    // Move image left
-            //await image.TranslateTo(-100, -100, 1000); // Move image up
-            //await image.TranslateTo(100, 100, 2000);   // Move image diagonally down and right
-            //await image.TranslateTo(0, 100, 1000);     // Move image left
-            //await image.TranslateTo(0, 0, 1000);       // Move image up
-
-
-
-            //image.ScaleTo(2, duration);
-
-            //await Task.WhenAll(
-            //  image.RotateTo(307 * 360, duration),
-            //  image.RotateXTo(251 * 360, duration),
-            //  image.RotateYTo(199 * 360, duration)
-            //);
-
-            //image.ScaleTo(1);
-
-            return;   
+            return true;
         }
     }
 }
