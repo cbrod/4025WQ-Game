@@ -105,7 +105,7 @@ namespace UnitTests.Views
             // Arrange
 
             // Act
-            page.GetItemToDisplay("Feet", new ItemModel());
+            page.GetItemToDisplay(ItemLocationEnum.Feet);
 
             // Reset
 
