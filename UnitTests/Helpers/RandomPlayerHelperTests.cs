@@ -59,6 +59,40 @@ namespace UnitTests.Helpers
         }
 
         [Test]
+        public void RandomPlayerHelper_GetMonsterName_2_Should_Return_2()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetMonsterName();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual("Deg", result);
+        }
+
+        [Test]
+        public void RandomPlayerHelper_GetMonsterDescription_2_Should_Return_2()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetMonsterDescription();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual("the Elf hater", result);
+        }
+
+        [Test]
         public void RandomPlayerHelper_GetCharacterDescription_2_Should_Return_2()
         {
             // Arrange
@@ -76,7 +110,7 @@ namespace UnitTests.Helpers
         }
 
         [Test]
-        public void RandomPlayerHelper_2_Should_Return_2()
+        public void RandomPlayerHelper_GetCharacterName_2_Should_Return_2()
         {
             // Arrange
             DiceHelper.EnableForcedRolls();
