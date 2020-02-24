@@ -48,8 +48,6 @@ namespace Game.Views
             this.ViewModel.Data.Level = 1;
             // LevelPicker.SelectedIndex = ViewModel.Data.Level - 1;
 
-            AddItemsToDisplay();
-
             UpdatePageBindingContext();
         }
 
@@ -71,6 +69,8 @@ namespace Game.Views
             LevelPicker.SelectedIndex = ViewModel.Data.Level-1;
 
             ManageHealth();
+
+            AddItemsToDisplay();
 
             return true;
         }
@@ -321,20 +321,14 @@ namespace Game.Views
 
             RandomizeCharacter();
 
-            // Randomize HP
-
-            // Randomize Name
-
-            // Update each of the the Items with Random Items
-
             return;   
         }
 
         public bool RandomizeCharacter()
         {
             // Randomize Name
-            ViewModel.Data.Name = RandomPlayerHelper.GetName();
-            ViewModel.Data.Description = RandomPlayerHelper.GetDescription();
+            ViewModel.Data.Name = RandomPlayerHelper.GetCharacterName();
+            ViewModel.Data.Description = RandomPlayerHelper.GetCharacterDescription();
 
             // Randomize the Attributes
             ViewModel.Data.Attack = RandomPlayerHelper.GetAbilityValue();

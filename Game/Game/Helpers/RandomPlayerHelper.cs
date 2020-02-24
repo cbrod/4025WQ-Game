@@ -1,7 +1,8 @@
 ﻿using Game.Models;
+using Game.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Game.Helpers
 {
@@ -16,25 +17,37 @@ namespace Game.Helpers
         {
             // Roll the Dice and reset the Health
             return DiceHelper.RollDice(level, 10);
-
         }
 
         /// <summary>
         /// Get Name
+        /// 
+        /// Return a Random Name
         /// </summary>
         /// <returns></returns>
-        public static string GetName()
+        public static string GetCharacterName()
         {
-            return "bob";
+
+            List<String> FirstNameList = new List<String>{"Mike", "Doug", "Jea", "Sue", "Tim", "Daren", "Dani", "Mami", "Mari", "Ryu", "Hucky", "Peanut", "Sumi", "Apple", "Ami", "Honami", "Sonomi", "Pat", "Sakue", "Isamu"};
+
+            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count())-1);
+
+            return result;
         }
 
         /// <summary>
         /// Get Description
+        /// 
+        /// Return a random description
         /// </summary>
         /// <returns></returns>
-        public static string GetDescription()
+        public static string GetCharacterDescription()
         {
-            return "bob";
+            List<String> StringList = new List<String> { "the terrible", "the awesome", "the lost", "the old", "the younger", "the quiet", "the loud", "the helpless", "the happy", "the sleepy", "the angry", "the clever" };
+
+            var result = StringList.ElementAt(DiceHelper.RollDice(1, StringList.Count()) - 1);
+
+            return result;
         }
 
         /// <summary>
@@ -66,7 +79,13 @@ namespace Game.Helpers
         /// <returns></returns>
         public static string GetItem(ItemLocationEnum location)
         {
-            return null;
+            var ItemList = ItemIndexViewModel.Instance.GetLocationItems(location);
+            
+            // Add Noe to the list
+            ItemList.Add(new ItemModel { Id = null, Name="None" });
+
+            var result = ItemList.ElementAt(DiceHelper.RollDice(1, ItemList.Count()) - 1).Id;
+            return result;
         }
     }
 }
