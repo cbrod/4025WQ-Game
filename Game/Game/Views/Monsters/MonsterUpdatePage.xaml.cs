@@ -172,6 +172,8 @@ namespace Game.Views
             ViewModel.Data.Speed = RandomPlayerHelper.GetAbilityValue();
             ViewModel.Data.Defense = RandomPlayerHelper.GetAbilityValue();
 
+            ViewModel.Data.Difficulty = RandomPlayerHelper.GetMonsterDifficultyValue();
+
             UpdatePageBindingContext();
 
             return true;
