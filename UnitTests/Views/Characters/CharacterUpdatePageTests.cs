@@ -1,10 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Game;
 using Game.Views;
@@ -195,6 +189,20 @@ namespace UnitTests.Views
 
             // Act
             page.Level_Changed(null, args);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterUpdatePage_RollDice_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.RollDice_Clicked(null, null);
 
             // Reset
 
