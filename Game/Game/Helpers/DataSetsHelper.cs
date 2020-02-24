@@ -47,6 +47,13 @@ namespace Game.Helpers
                     await Task.Delay(100);
                 })).Unwrap();
                 runSyncCharacter.Wait();
+
+                var runSyncMonster = Task.Factory.StartNew(new Func<Task>(async () =>
+                {
+                    await MonsterIndexViewModel.Instance.DataStoreWipeDataListAsync();
+                    await Task.Delay(100);
+                })).Unwrap();
+                runSyncMonster.Wait();
             }
 
             return await Task.FromResult(true);
