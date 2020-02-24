@@ -7,6 +7,7 @@ using Game.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Mocks;
+using System.Linq;
 
 namespace UnitTests.Views
 {
@@ -181,6 +182,98 @@ namespace UnitTests.Views
 
             // Act
             page.RollDice_Clicked(null,null);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_ClosePopup_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ClosePopup();
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_ClosePopup_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ClosePopup_Clicked(null, null);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_ShowPopup_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ShowPopup(new ItemModel());
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_OnPopupItemSelected_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            var data = new ItemModel();
+
+            var selectedMonsterChangedEventArgs = new SelectedItemChangedEventArgs(data, 0);
+
+            // Act
+            page.OnPopupItemSelected(null, selectedMonsterChangedEventArgs);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_OnPopupItemSelected_Clicked_Null_Should_Fail()
+        {
+            // Arrange
+
+            var selectedMonsterChangedEventArgs = new SelectedItemChangedEventArgs(null, 0);
+
+            // Act
+            page.OnPopupItemSelected(null, selectedMonsterChangedEventArgs);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void MonsterCreatePage_Item_ShowPopup_Default_Should_Pass()
+        {
+            // Arrange
+
+            var item = page.GetItemToDisplay();
+
+            // Act
+            var itemButton = item.Children.FirstOrDefault(m => m.GetType().Name.Equals("Button"));
 
             // Reset
 
