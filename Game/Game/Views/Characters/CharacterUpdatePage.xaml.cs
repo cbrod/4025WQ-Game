@@ -348,6 +348,8 @@ namespace Game.Views
 
             ViewModel.Data.MaxHealth = RandomPlayerHelper.GetHealth(ViewModel.Data.Level);
 
+            ViewModel.Data.ImageURI = RandomPlayerHelper.GetCharacterImage();
+
             UpdatePageBindingContext();
 
             return true;
