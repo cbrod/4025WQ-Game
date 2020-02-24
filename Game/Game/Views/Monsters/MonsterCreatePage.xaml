@@ -87,8 +87,16 @@
                                 <Entry 
                                     Text="{Binding Data.ImageURI, Mode=TwoWay}" 
                                     Style="{StaticResource EntryStyle}"/>
-
                             </StackLayout>
+
+                            <Label Grid.Row="3" Grid.Column="0"
+                                Text="Difficulty" 
+                                Style="{StaticResource LabelStyle}"/>
+
+                            <Picker Grid.Row="3" Grid.Column="1"
+                                SelectedItem="{Binding SelectedItemProperty, Mode=TwoWay}" 
+                                SelectedIndexChanged="Difficulty_Changed"
+                                x:Name="DifficultyPicker"/>
                         </Grid>
 
                         <StackLayout Style="{StaticResource VerticalStack}" HorizontalOptions="FillAndExpand">

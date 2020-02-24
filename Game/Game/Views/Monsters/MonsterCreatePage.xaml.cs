@@ -37,6 +37,12 @@ namespace Game.Views
 
             this.ViewModel.Title = "Create";
 
+            // Load the values for the Level into the Picker
+            foreach (var item in DifficultyEnumHelper.GetListMonster)
+            {
+                DifficultyPicker.Items.Add(item);
+            }
+
             UpdatePageBindingContext();
         }
 
@@ -46,11 +52,37 @@ namespace Game.Views
         /// <returns></returns>
         public bool UpdatePageBindingContext()
         {
+            // Temp store off the difficulty
+            var difficulty = this.ViewModel.Data.Difficulty;
+
             // Clear the Binding and reset it
             BindingContext = null;
             BindingContext = this.ViewModel;
 
+            ViewModel.Data.Difficulty = difficulty;
+
+            DifficultyPicker.SelectedItem = difficulty;
+            DifficultyPicker.SelectedIndex = DifficultyPicker.Items.IndexOf(DifficultyPicker.SelectedItem.ToString());
+
             return true;
+        }
+
+        /// <summary>
+        /// The Level selected from the list
+        /// Need to recalculate Max Health
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        public void Difficulty_Changed(object sender, EventArgs args)
+        {
+            // Check for null, SelectedItem is not set when the control is created
+            if (DifficultyPicker.SelectedItem == null)
+            {
+                return;
+            }
+
+            // Change the Difficulty
+            ViewModel.Data.Difficulty = DifficultyEnumHelper.ConvertStringToEnum(DifficultyPicker.SelectedItem.ToString());
         }
 
         /// <summary>
