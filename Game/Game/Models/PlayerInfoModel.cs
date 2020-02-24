@@ -40,6 +40,8 @@ namespace Game.Models
             RightFinger = data.RightFinger;
             LeftFinger = data.LeftFinger;
             Feet = data.Feet;
+
+            Difficulty = data.Difficulty;
         }
 
         /// <summary>
@@ -67,6 +69,8 @@ namespace Game.Models
             RightFinger = data.RightFinger;
             LeftFinger = data.LeftFinger;
             Feet = data.Feet;
+
+            Difficulty = data.Difficulty;
         }
 
         /// <summary>
@@ -94,6 +98,8 @@ namespace Game.Models
             RightFinger = data.RightFinger;
             LeftFinger = data.LeftFinger;
             Feet = data.Feet;
+
+            Difficulty = data.Difficulty;
         }
     }
 }
