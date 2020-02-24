@@ -1,8 +1,6 @@
 ﻿using Game.Models;
 using Game.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Game.Services
 {
@@ -260,6 +258,11 @@ namespace Game.Services
             return datalist;
         }
 
+        /// <summary>
+        /// Load Example Scores
+        /// </summary>
+        /// <param name="temp"></param>
+        /// <returns></returns>
         public static List<ScoreModel> LoadData(ScoreModel temp)
         {
             var datalist = new List<ScoreModel>()
@@ -278,6 +281,11 @@ namespace Game.Services
             return datalist;
         }
 
+        /// <summary>
+        /// Load Characters
+        /// </summary>
+        /// <param name="temp"></param>
+        /// <returns></returns>
         public static List<CharacterModel> LoadData(CharacterModel temp)
         {
             var HeadString = ItemIndexViewModel.Instance.GetDefaultItemId(ItemLocationEnum.Head);
