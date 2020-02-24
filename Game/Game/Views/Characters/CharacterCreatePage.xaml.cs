@@ -232,7 +232,7 @@ namespace Game.Views
         /// <summary>
         /// Close the popup
         /// </summary>
-        private void ClosePopup()
+        public void ClosePopup()
         {
             PopupItemSelector.IsVisible = false;
         }
