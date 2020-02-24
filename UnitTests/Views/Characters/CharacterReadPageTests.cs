@@ -1,10 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Game;
 using Game.Views;
@@ -13,6 +8,7 @@ using Game.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Mocks;
+using System.Threading.Tasks;
 
 namespace UnitTests.Views
 {
@@ -141,5 +137,62 @@ namespace UnitTests.Views
             Assert.IsTrue(true); // Got to here, so it happened...
         }
 
+        [Test]
+        public void CharacterReadPage_AddItemsToDisplay_With_Data_Should_Remove_And_Pass()
+        {
+            // Arrange
+
+            // Put some data into the box so it can be removed
+            FlexLayout itemBox = (FlexLayout)page.Content.FindByName("ItemBox");
+
+            itemBox.Children.Add(new Label());
+            itemBox.Children.Add(new Label());
+
+            // Act
+            page.AddItemsToDisplay();
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(7, itemBox.Children.Count()); // Got to here, so it happened...
+        }
+
+        [Test]
+        public async Task CharacterReadPage_GetItemToDisplay_With_Item_Should_Pass()
+        {
+            // Arrange
+            ItemIndexViewModel.Instance.Dataset.Clear();
+            var createStatus = await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Location = ItemLocationEnum.Head });
+
+            var character = new CharacterModel();
+            character.Head = ItemIndexViewModel.Instance.GetLocationItems(ItemLocationEnum.Head).First().Id;
+            page.ViewModel.Data = character;
+
+            // Act
+            var result = page.GetItemToDisplay(ItemLocationEnum.Head);
+
+            // Reset
+            var wipeStatus = await Game.Helpers.DataSetsHelper.WipeDataInSequence();
+
+            // Assert
+            Assert.AreEqual(2, result.Children.Count()); // Got to here, so it happened...
+        }
+
+        [Test]
+        public async Task CharacterReadPage_GetItemToDisplay_With_NoItem_Should_Pass()
+        {
+            // Arrange
+            ItemIndexViewModel.Instance.Dataset.Clear();
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Location = ItemLocationEnum.Head });
+
+            // Act
+            var result = page.GetItemToDisplay(ItemLocationEnum.Head);
+
+            // Reset
+            await Game.Helpers.DataSetsHelper.WipeDataInSequence();
+
+            // Assert
+            Assert.AreEqual(2, result.Children.Count()); // Got to here, so it happened...
+        }
     }
 }
