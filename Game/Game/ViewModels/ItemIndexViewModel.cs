@@ -201,7 +201,7 @@ namespace Game.ViewModels
         public ItemModel GetDefaultItem(ItemLocationEnum location)
         {
             var dataList = GetLocationItems(location);
-            if (dataList == null)
+            if (dataList.Count() == 0)
             {
                 return null;
             }
