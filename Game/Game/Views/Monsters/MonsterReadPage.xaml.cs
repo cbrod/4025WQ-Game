@@ -50,7 +50,6 @@ namespace Game.Views
             ItemBox.Children.Add(GetItemToDisplay());
         }
 
-
         /// <summary>
         /// Look up the Item to Display
         /// </summary>
