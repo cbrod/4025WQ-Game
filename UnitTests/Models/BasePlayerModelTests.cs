@@ -845,5 +845,60 @@ namespace UnitTests.Models
             // Assert
             Assert.AreEqual("1 + 1D 1", result);
         }
+
+        [Test]
+        public void BasePlayerModel_ItemSlotsFormatOutput_Full_Should_Pass()
+        {
+            var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
+
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Head = item.Id,
+                Necklass = item.Id,
+                PrimaryHand = item.Id,
+                OffHand = item.Id,
+                RightFinger = item.Id,
+                LeftFinger = item.Id,
+                Feet = item.Id,
+                UniqueItem = item.Id,
+            };
+
+            // Act
+            var result = data.ItemSlotsFormatOutput();
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, result.Contains("Attack"));
+        }
+
+
+        [Test]
+        public void BasePlayerModel_ItemSlotsFormatOutput_Empty_Should_Pass()
+        {
+            var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
+
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Head = null,
+                Necklass = null,
+                PrimaryHand = null,
+                OffHand = null,
+                RightFinger = null,
+                LeftFinger = null,
+                Feet = null,
+                UniqueItem = null,
+            };
+
+            // Act
+            var result = data.ItemSlotsFormatOutput();
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, string.IsNullOrEmpty(result));
+        }
     }
 }
