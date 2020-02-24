@@ -86,6 +86,9 @@ namespace Game.Models
 
         // LeftFinger is a string referencing the database table
         public string LeftFinger { get; set; } = null;
+
+        // Unique Drop Item for Monsters
+        public string UniqueItem { get; set; } = null;
         #endregion Items
 
         #region AttributeDisplay
@@ -365,7 +368,7 @@ namespace Game.Models
             return Alive;
         }
 
-        public string FormatOutput() { return ""; }
+        public virtual string FormatOutput() { return ""; }
 
         public bool AddExperience(int newExperience) { return true; }
 
@@ -594,6 +597,65 @@ namespace Game.Models
             }
 
             return myReturn;
+        }
+
+        /// <summary>
+        /// Get the Items the Character has
+        /// </summary>
+        /// <returns></returns>
+        public string ItemSlotsFormatOutput()
+        {
+            var myReturn = "";
+
+            var data = ItemIndexViewModel.Instance.GetItem(UniqueItem);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(Head);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(Necklass);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(PrimaryHand);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(OffHand);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(RightFinger);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(LeftFinger);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            data = ItemIndexViewModel.Instance.GetItem(Feet);
+            if (data != null)
+            {
+                myReturn += data.FormatOutput();
+            }
+
+            return myReturn.Trim();
         }
 
         #endregion Items
