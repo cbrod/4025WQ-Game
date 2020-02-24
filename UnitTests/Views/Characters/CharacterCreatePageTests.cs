@@ -179,5 +179,111 @@ namespace UnitTests.Views
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...
         }
+
+        [Test]
+        public void CharacterCreatePage_RollDice_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.RollDice_Clicked(null,null);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_ClosePopup_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ClosePopup();
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_ClosePopup_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ClosePopup_Clicked(null,null);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_ShowPopup_Default_Should_Pass()
+        {
+            // Arrange
+
+            // Act
+            page.ShowPopup(ItemLocationEnum.Head);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_OnPopupItemSelected_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+
+            var data = new ItemModel();
+
+            var selectedCharacterChangedEventArgs = new SelectedItemChangedEventArgs(data, 0);
+
+            // Act
+            page.OnPopupItemSelected(null, selectedCharacterChangedEventArgs);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_OnPopupItemSelected_Clicked_Null_Should_Fail()
+        {
+            // Arrange
+
+            var selectedCharacterChangedEventArgs = new SelectedItemChangedEventArgs(null, 0);
+            
+            // Act
+            page.OnPopupItemSelected(null, selectedCharacterChangedEventArgs);
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public void CharacterCreatePage_Item_ShowPopup_Default_Should_Pass()
+        {
+            // Arrange
+                        
+            var item = page.GetItemToDisplay(ItemLocationEnum.Head);
+
+            // Act
+            var itemButton = item.Children.FirstOrDefault(m => m.GetType().Name.Equals("Button"));
+
+            // Reset
+
+            // Assert
+            Assert.IsTrue(true); // Got to here, so it happened...
+        }
     }
 }
