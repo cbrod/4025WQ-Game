@@ -174,6 +174,8 @@ namespace Game.Views
 
             ViewModel.Data.Difficulty = RandomPlayerHelper.GetMonsterDifficultyValue();
 
+            ViewModel.Data.ImageURI = RandomPlayerHelper.GetMonsterImage();
+
             UpdatePageBindingContext();
 
             return true;
