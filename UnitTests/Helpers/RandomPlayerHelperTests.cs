@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 
 using Game.Helpers;
+using Game.Models;
 
 namespace UnitTests.Helpers
 {
@@ -142,5 +143,23 @@ namespace UnitTests.Helpers
             // Assert
             Assert.AreNotEqual(null, result);
         }
+
+        [Test]
+        public void RandomPlayerHelper_GetMonsterDifficultyValue_Should_Pass()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetMonsterDifficultyValue();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual(DifficultyEnum.Average, result);
+        }
+        
     }
 }

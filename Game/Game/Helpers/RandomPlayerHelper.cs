@@ -19,6 +19,20 @@ namespace Game.Helpers
             return DiceHelper.RollDice(level, 10);
         }
 
+        /// <summary>
+        /// Get A Random Difficulty
+        /// </summary>
+        /// <returns></returns>
+        public static DifficultyEnum GetMonsterDifficultyValue()
+        {
+            var DifficultyList = DifficultyEnumHelper.GetListMonster;
+
+            var RandomDifficulty = DifficultyList.ElementAt(DiceHelper.RollDice(1, DifficultyList.Count())-1);
+
+            var result = DifficultyEnumHelper.ConvertStringToEnum(RandomDifficulty);
+
+            return result;
+        }
 
         /// <summary>
         /// Get Name
@@ -29,7 +43,7 @@ namespace Game.Helpers
         public static string GetMonsterName()
         {
 
-            List<String> FirstNameList = new List<String> { "Arg", "Deg", "Ase", "Xes", "Zez", "Klk", "Oi", "Oni", "Tanu"};
+            List<String> FirstNameList = new List<String> { "Arg", "Deg", "Ase", "Xes", "Zez", "Klk", "Oi", "Oni", "Tanu" };
 
             var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
 
@@ -44,7 +58,7 @@ namespace Game.Helpers
         /// <returns></returns>
         public static string GetMonsterDescription()
         {
-            List<String> StringList = new List<String> { "eats Elf", "the Elf hater", "Elf destoryer", "Elf Hunter", "Elf Killer", "Can't we all get along?"};
+            List<String> StringList = new List<String> { "eats Elf", "the Elf hater", "Elf destoryer", "Elf Hunter", "Elf Killer", "Can't we all get along?" };
 
             var result = StringList.ElementAt(DiceHelper.RollDice(1, StringList.Count()) - 1);
 
@@ -60,9 +74,9 @@ namespace Game.Helpers
         public static string GetCharacterName()
         {
 
-            List<String> FirstNameList = new List<String>{"Mike", "Doug", "Jea", "Sue", "Tim", "Daren", "Dani", "Mami", "Mari", "Ryu", "Hucky", "Peanut", "Sumi", "Apple", "Ami", "Honami", "Sonomi", "Pat", "Sakue", "Isamu"};
+            List<String> FirstNameList = new List<String> { "Mike", "Doug", "Jea", "Sue", "Tim", "Daren", "Dani", "Mami", "Mari", "Ryu", "Hucky", "Peanut", "Sumi", "Apple", "Ami", "Honami", "Sonomi", "Pat", "Sakue", "Isamu" };
 
-            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count())-1);
+            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
 
             return result;
         }
@@ -112,9 +126,9 @@ namespace Game.Helpers
         public static string GetItem(ItemLocationEnum location)
         {
             var ItemList = ItemIndexViewModel.Instance.GetLocationItems(location);
-            
+
             // Add Noe to the list
-            ItemList.Add(new ItemModel { Id = null, Name="None" });
+            ItemList.Add(new ItemModel { Id = null, Name = "None" });
 
             var result = ItemList.ElementAt(DiceHelper.RollDice(1, ItemList.Count()) - 1).Id;
             return result;
