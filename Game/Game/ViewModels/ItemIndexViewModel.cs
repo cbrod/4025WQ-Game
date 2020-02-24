@@ -220,6 +220,18 @@ namespace Game.ViewModels
         {
             List<ItemModel> data = null;
 
+            // Convert Right and Left Finger to Finger
+            if (location == ItemLocationEnum.RightFinger)
+            {
+                location = ItemLocationEnum.Finger;
+            }
+
+            if (location == ItemLocationEnum.LeftFinger)
+            {
+                location = ItemLocationEnum.Finger;
+            }
+
+            // Find the Items that meet the criteria
             data = Dataset.Where(m => m.Location == location).ToList();
 
             return data;
