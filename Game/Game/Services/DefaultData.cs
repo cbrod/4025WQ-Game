@@ -378,5 +378,54 @@ namespace Game.Services
 
             return datalist;
         }
+
+        /// <summary>
+        /// Load Characters
+        /// </summary>
+        /// <param name="temp"></param>
+        /// <returns></returns>
+        public static List<MonsterModel> LoadData(MonsterModel temp)
+        {
+            var datalist = new List<MonsterModel>()
+            {
+                new MonsterModel {
+                    Name = "Green Troll",
+                    Description = "Big and Ugly",
+                    ImageURI = "troll1.png",
+                },
+                
+                new MonsterModel {
+                    Name = "Old Troll",
+                    Description = "Old and Powerfull",
+                    ImageURI = "troll2.png",
+                },
+
+                new MonsterModel {
+                    Name = "Dainty Troll",
+                    Description = "and fast",
+                    ImageURI = "troll3.png",
+                },
+
+                new MonsterModel {
+                    Name = "Troll's Troll",
+                    Description = "wozer",
+                    ImageURI = "troll4.png",
+                },
+
+                new MonsterModel {
+                    Name = "Warrior Troll",
+                    Description = "with sword",
+                    ImageURI = "troll4.png",
+                },
+
+                new MonsterModel {
+                    Name = "Ax Troll",
+                    Description = "with Hat and Ax",
+                    ImageURI = "troll5.png",
+                },
+            };
+
+            return datalist;
+        }
     }
 }
