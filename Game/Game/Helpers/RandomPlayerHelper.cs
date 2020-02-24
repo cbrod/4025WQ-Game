@@ -19,6 +19,38 @@ namespace Game.Helpers
             return DiceHelper.RollDice(level, 10);
         }
 
+
+        /// <summary>
+        /// Get Name
+        /// 
+        /// Return a Random Name
+        /// </summary>
+        /// <returns></returns>
+        public static string GetMonsterName()
+        {
+
+            List<String> FirstNameList = new List<String> { "Arg", "Deg", "Ase", "Xes", "Zez", "Klk", "Oi", "Oni", "Tanu"};
+
+            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get Description
+        /// 
+        /// Return a random description
+        /// </summary>
+        /// <returns></returns>
+        public static string GetMonsterDescription()
+        {
+            List<String> StringList = new List<String> { "eats Elf", "the Elf hater", "Elf destoryer", "Elf Hunter", "Elf Killer", "Can't we all get along?"};
+
+            var result = StringList.ElementAt(DiceHelper.RollDice(1, StringList.Count()) - 1);
+
+            return result;
+        }
+
         /// <summary>
         /// Get Name
         /// 
