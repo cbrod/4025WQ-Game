@@ -315,7 +315,7 @@ namespace Game.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public async void RollDice_Clicked(object sender, EventArgs e)
+        public void RollDice_Clicked(object sender, EventArgs e)
         {
             DiceAnimationHandeler();
 
@@ -324,6 +324,13 @@ namespace Game.Views
             return;   
         }
 
+        /// <summary>
+        /// 
+        /// Randomize the Character
+        /// Keep the Level the Same
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool RandomizeCharacter()
         {
             // Randomize Name
