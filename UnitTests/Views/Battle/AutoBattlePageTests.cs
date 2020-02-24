@@ -52,14 +52,14 @@ namespace UnitTests.Views
         {
             // Arrange
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(3);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(3);
 
             // Act
             page.AutobattleButton_Clicked(null, null);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...

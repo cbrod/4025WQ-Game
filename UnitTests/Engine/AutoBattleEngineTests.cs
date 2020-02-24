@@ -56,14 +56,14 @@ namespace UnitTests.Engine
         {
             //Arrange
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(3);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(3);
 
             //Act
             var result = Engine.RunAutoBattle();
 
             //Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             //Assert
             Assert.IsNotNull(result);

@@ -730,8 +730,8 @@ namespace UnitTests.Models
             data.AddItem(ItemLocationEnum.LeftFinger, (await ItemIndexViewModel.Instance.ReadAsync("LeftFinger")).Id);
             data.AddItem(ItemLocationEnum.Feet, (await ItemIndexViewModel.Instance.ReadAsync("feet")).Id);
 
-            Game.Helpers.DiceHelper.EnableRandomValues();
-            Game.Helpers.DiceHelper.SetForcedRandomValue(1);
+            Game.Helpers.DiceHelper.EnableForcedRolls();
+            Game.Helpers.DiceHelper.SetForcedRollValue(1);
 
             // Act
 
@@ -739,7 +739,7 @@ namespace UnitTests.Models
             var result = data.GetDamageRollValue();
 
             // Reset
-            Game.Helpers.DiceHelper.DisableRandomValues();
+            Game.Helpers.DiceHelper.DisableForcedRolls();
  
             // Assert
             Assert.AreEqual(2, result);
@@ -763,8 +763,8 @@ namespace UnitTests.Models
             // Add the first item
             data.AddItem(ItemLocationEnum.PrimaryHand, (await ItemIndexViewModel.Instance.ReadAsync("PrimaryHand")).Id);
 
-            Game.Helpers.DiceHelper.EnableRandomValues();
-            Game.Helpers.DiceHelper.SetForcedRandomValue(1);
+            Game.Helpers.DiceHelper.EnableForcedRolls();
+            Game.Helpers.DiceHelper.SetForcedRollValue(1);
 
             // Act
 
@@ -772,7 +772,7 @@ namespace UnitTests.Models
             var result = data.GetDamageItemBonus;
 
             // Reset
-            Game.Helpers.DiceHelper.DisableRandomValues();
+            Game.Helpers.DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(1, result);
@@ -796,8 +796,8 @@ namespace UnitTests.Models
             // Add the first item
             data.AddItem(ItemLocationEnum.PrimaryHand, (await ItemIndexViewModel.Instance.ReadAsync("PrimaryHand")).Id);
 
-            Game.Helpers.DiceHelper.EnableRandomValues();
-            Game.Helpers.DiceHelper.SetForcedRandomValue(1);
+            Game.Helpers.DiceHelper.EnableForcedRolls();
+            Game.Helpers.DiceHelper.SetForcedRollValue(1);
 
             // Act
 
@@ -805,7 +805,7 @@ namespace UnitTests.Models
             var result = data.GetDamageItemBonusString;
 
             // Reset
-            Game.Helpers.DiceHelper.DisableRandomValues();
+            Game.Helpers.DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual("1D 1", result);
@@ -829,8 +829,8 @@ namespace UnitTests.Models
             // Add the first item
             data.AddItem(ItemLocationEnum.PrimaryHand, (await ItemIndexViewModel.Instance.ReadAsync("PrimaryHand")).Id);
 
-            Game.Helpers.DiceHelper.EnableRandomValues();
-            Game.Helpers.DiceHelper.SetForcedRandomValue(1);
+            Game.Helpers.DiceHelper.EnableForcedRolls();
+            Game.Helpers.DiceHelper.SetForcedRollValue(1);
 
             // Act
 
@@ -838,7 +838,7 @@ namespace UnitTests.Models
             var result = data.GetDamageTotalString;
 
             // Reset
-            Game.Helpers.DiceHelper.DisableRandomValues();
+            Game.Helpers.DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual("1 + 1D 1", result);

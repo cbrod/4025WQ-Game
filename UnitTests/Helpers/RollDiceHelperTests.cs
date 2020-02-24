@@ -41,14 +41,14 @@ namespace UnitTests.Helpers
         public void RollDiceHelper_RollDice_Valid_1Time_6sided_Forced_6_Should_Pass()
         {
             // Arrange
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(6);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(6);
 
             // Act
             var result = DiceHelper.RollDice(1, 6);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(6, result);

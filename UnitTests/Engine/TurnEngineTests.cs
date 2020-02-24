@@ -232,14 +232,14 @@ namespace UnitTests.Engine
             var AttackScore = 10;
             var DefenseScore = 0;
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(3); // Always roll a 3.
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(3); // Always roll a 3.
             
             // Act
             var result = Engine.RollToHitTarget(AttackScore, DefenseScore);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(HitStatusEnum.Hit, result);
@@ -252,14 +252,14 @@ namespace UnitTests.Engine
             var AttackScore = 1;
             var DefenseScore = 100;
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(2);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
 
             // Act
             var result = Engine.RollToHitTarget(AttackScore, DefenseScore);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(HitStatusEnum.Miss, result);
@@ -272,14 +272,14 @@ namespace UnitTests.Engine
             var AttackScore = 1;
             var DefenseScore = 100;
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(1);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(1);
 
             // Act
             var result = Engine.RollToHitTarget(AttackScore, DefenseScore);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(HitStatusEnum.Miss, result);
@@ -292,14 +292,14 @@ namespace UnitTests.Engine
             var AttackScore = 1;
             var DefenseScore = 100;
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(20);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(20);
 
             // Act
             var result = Engine.RollToHitTarget(AttackScore, DefenseScore);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(HitStatusEnum.Hit, result);
@@ -328,14 +328,14 @@ namespace UnitTests.Engine
 
             var PlayerInfo = new PlayerInfoModel(player);
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(0);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(0);
 
             // Act
             var result = Engine.DropItems(PlayerInfo);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(0, result);
@@ -353,14 +353,14 @@ namespace UnitTests.Engine
 
             var PlayerInfo = new PlayerInfoModel(player);
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(0);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(0);
 
             // Act
             var result = Engine.DropItems(PlayerInfo);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(2, result);
@@ -374,14 +374,14 @@ namespace UnitTests.Engine
 
             var PlayerInfo = new PlayerInfoModel(player);
 
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(1);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(1);
 
             // Act
             var result = Engine.DropItems(PlayerInfo);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(1, result);
@@ -478,14 +478,14 @@ namespace UnitTests.Engine
             Engine.MonsterList.Add(MonsterPlayer);
 
             // Forece a Miss
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(1);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(1);
 
             // Act
             var result = Engine.TurnAsAttack(CharacterPlayer, MonsterPlayer);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(true, result);
@@ -504,14 +504,14 @@ namespace UnitTests.Engine
             Engine.MonsterList.Add(MonsterPlayer);
 
             // Forece a Miss
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(20);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(20);
 
             // Act
             var result = Engine.TurnAsAttack(CharacterPlayer, MonsterPlayer);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(true, result);
@@ -532,14 +532,14 @@ namespace UnitTests.Engine
             Engine.MonsterList.Add(MonsterPlayer);
 
             // Forece a Miss
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(20);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(20);
 
             // Act
             var result = Engine.TurnAsAttack(CharacterPlayer, MonsterPlayer);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(true, result);
@@ -558,14 +558,14 @@ namespace UnitTests.Engine
             Engine.CharacterList.Add(CharacterPlayer);
 
             // Forece a Miss
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(1);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(1);
 
             // Act
             var result = Engine.TurnAsAttack(MonsterPlayer, CharacterPlayer);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(true, result);
@@ -584,14 +584,14 @@ namespace UnitTests.Engine
             Engine.CharacterList.Add(CharacterPlayer);
 
             // Forece a Miss
-            DiceHelper.EnableRandomValues();
-            DiceHelper.SetForcedRandomValue(20);
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(20);
 
             // Act
             var result = Engine.TurnAsAttack(MonsterPlayer, CharacterPlayer);
 
             // Reset
-            DiceHelper.DisableRandomValues();
+            DiceHelper.DisableForcedRolls();
 
             // Assert
             Assert.AreEqual(true, result);
