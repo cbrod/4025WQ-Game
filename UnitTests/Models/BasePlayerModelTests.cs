@@ -63,6 +63,8 @@ namespace UnitTests.Models
             Assert.AreEqual(null, result.OffHand);
             Assert.AreEqual(null, result.RightFinger);
             Assert.AreEqual(null, result.LeftFinger);
+
+            Assert.AreEqual(DifficultyEnum.Unknown, result.Difficulty);
         }
 
         [Test]
