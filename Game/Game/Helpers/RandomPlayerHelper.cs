@@ -35,6 +35,34 @@ namespace Game.Helpers
         }
 
         /// <summary>
+        /// Get Random Image
+        /// </summary>
+        /// <returns></returns>
+        public static string GetMonsterImage()
+        {
+
+            List<String> FirstNameList = new List<String> { "troll1.png", "troll2.png", "troll3.png", "troll4.png", "troll5.png", "troll6.png"};
+
+            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Get Random Image
+        /// </summary>
+        /// <returns></returns>
+        public static string GetCharacterImage()
+        {
+
+            List<String> FirstNameList = new List<String> { "elf1.png", "elf2.png", "elf3.png", "elf4.png", "elf5.png", "elf6.png", "elf7.png" };
+
+            var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
+
+            return result;
+        }
+
+        /// <summary>
         /// Get Name
         /// 
         /// Return a Random Name

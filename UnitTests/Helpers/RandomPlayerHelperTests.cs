@@ -160,6 +160,40 @@ namespace UnitTests.Helpers
             // Assert
             Assert.AreEqual(DifficultyEnum.Average, result);
         }
-        
+
+        [Test]
+        public void RandomPlayerHelper_GetMonsterImage_2_Should_Return_2()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetMonsterImage();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual("troll2.png", result);
+        }
+
+        [Test]
+        public void RandomPlayerHelper_GetCharacterImage_2_Should_Return_2()
+        {
+            // Arrange
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetCharacterImage();
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual("elf2.png", result);
+        }
+
     }
 }
