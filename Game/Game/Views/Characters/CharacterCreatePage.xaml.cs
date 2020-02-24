@@ -284,7 +284,7 @@ namespace Game.Views
             };
 
             // Add a event to the user can click the item and see more
-            ItemButton.Clicked += (sender, args) => ShowPopup(data.Location);
+            ItemButton.Clicked += (sender, args) => ShowPopup(location);
 
             // Add the Display Text for the item
             var ItemLabel = new Label
