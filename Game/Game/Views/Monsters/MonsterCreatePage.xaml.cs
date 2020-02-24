@@ -178,6 +178,8 @@ namespace Game.Views
 
             ViewModel.Data.ImageURI = RandomPlayerHelper.GetMonsterImage();
 
+            ViewModel.Data.UniqueItem = RandomPlayerHelper.GetMonsterUniqueItem();
+
             UpdatePageBindingContext();
 
             return true;
