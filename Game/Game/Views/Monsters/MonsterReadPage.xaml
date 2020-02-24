@@ -50,6 +50,15 @@
 
                         <StackLayout Style="{StaticResource HorizontalStack}">
                             <Label 
+                                Text="Difficulty : " 
+                                Style="{StaticResource LabelStyle}"/>
+                            <Label 
+                                Text="{Binding Data.Difficulty}" 
+                                Style="{StaticResource ValueStyle}"/>
+                        </StackLayout>
+                        
+                        <StackLayout Style="{StaticResource HorizontalStack}">
+                            <Label 
                                 Text="Level : " 
                                 Style="{StaticResource LabelStyle}"/>
                             <Label 
