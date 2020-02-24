@@ -38,7 +38,7 @@ namespace Game.Helpers
         {
             var DifficultyList = DifficultyEnumHelper.GetListMonster;
 
-            var RandomDifficulty = DifficultyList.ElementAt(DiceHelper.RollDice(1, DifficultyList.Count())-1);
+            var RandomDifficulty = DifficultyList.ElementAt(DiceHelper.RollDice(1, DifficultyList.Count()) - 1);
 
             var result = DifficultyEnumHelper.ConvertStringToEnum(RandomDifficulty);
 
@@ -52,7 +52,7 @@ namespace Game.Helpers
         public static string GetMonsterImage()
         {
 
-            List<String> FirstNameList = new List<String> { "troll1.png", "troll2.png", "troll3.png", "troll4.png", "troll5.png", "troll6.png"};
+            List<String> FirstNameList = new List<String> { "troll1.png", "troll2.png", "troll3.png", "troll4.png", "troll5.png", "troll6.png" };
 
             var result = FirstNameList.ElementAt(DiceHelper.RollDice(1, FirstNameList.Count()) - 1);
 
@@ -170,6 +170,44 @@ namespace Game.Helpers
             ItemList.Add(new ItemModel { Id = null, Name = "None" });
 
             var result = ItemList.ElementAt(DiceHelper.RollDice(1, ItemList.Count()) - 1).Id;
+            return result;
+        }
+
+        public static CharacterModel GetRandomCharacter(int MaxLevel)
+        {
+            var rnd = DiceHelper.RollDice(1, CharacterIndexViewModel.Instance.Dataset.Count);
+
+            var result = new CharacterModel(CharacterIndexViewModel.Instance.Dataset.ElementAt(rnd - 1))
+            {
+                Level = DiceHelper.RollDice(1, MaxLevel),
+
+                // Randomize Name
+                Name = RandomPlayerHelper.GetCharacterName(),
+                Description = RandomPlayerHelper.GetCharacterDescription(),
+
+                // Randomize the Attributes
+                Attack = RandomPlayerHelper.GetAbilityValue(),
+                Speed = RandomPlayerHelper.GetAbilityValue(),
+                Defense = RandomPlayerHelper.GetAbilityValue(),
+
+                // Randomize an Item for Location
+                Head = RandomPlayerHelper.GetItem(ItemLocationEnum.Head),
+                Necklass = RandomPlayerHelper.GetItem(ItemLocationEnum.Necklass),
+                PrimaryHand = RandomPlayerHelper.GetItem(ItemLocationEnum.PrimaryHand),
+                OffHand = RandomPlayerHelper.GetItem(ItemLocationEnum.OffHand),
+                RightFinger = RandomPlayerHelper.GetItem(ItemLocationEnum.Finger),
+                LeftFinger = RandomPlayerHelper.GetItem(ItemLocationEnum.Finger),
+                Feet = RandomPlayerHelper.GetItem(ItemLocationEnum.Feet),
+
+                ImageURI = RandomPlayerHelper.GetCharacterImage()
+            };
+
+            // Level up to the new level
+            result.LevelUpToValue(result.Level);
+
+            // Enter Battle at full health
+            result.CurrentHealth = MaxLevel;    
+
             return result;
         }
     }
