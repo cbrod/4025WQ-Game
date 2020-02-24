@@ -89,8 +89,8 @@ namespace Game.Views
 
             if (answer)
             {
-               Task.Run(async ()=> { await DataSetsHelper.WipeDataInSequence(); });
-               //MessagingCenter.Send(this, "WipeDataList", true);
+                Task.Run(async () => { await DataSetsHelper.WipeDataInSequence(); });
+                //MessagingCenter.Send(this, "WipeDataList", true);
             }
         }
 
@@ -101,34 +101,46 @@ namespace Game.Views
         /// <param name="e"></param>
         private async void GetItemsGet_Command(object sender, EventArgs e)
         {
-            var myOutput = "No Results";
-            var myDataList = new List<ItemModel>();
+            var result = await GetItemsGet();
+            await DisplayAlert("Returned List", result, "OK");
+        }
 
-            var answer = await DisplayAlert("Get", "Sure you want to Get Items from the Server?", "Yes", "No");
-            if (answer)
+        /// <summary>
+        /// Call the server call for Get Items using HTTP Get
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetItemsGet()
+        {
+            // Call to the ItemModel Service and have it Get the Items
+            // The ServerItemValue Code stands for the batch of items to get
+            // as the group to request.  1, 2, 3, 100 (All), or if not specified All
+
+            var result = "No Results";
+
+            var value = Convert.ToInt32(ServerItemValue.Text);
+            var dataList = await Services.ItemService.GetItemsFromServerGetAsync(value);
+
+            if (dataList == null)
             {
-                // Call to the ItemModel Service and have it Get the Items
-                // The ServerItemValue Code stands for the batch of items to get
-                // as the group to request.  1, 2, 3, 100 (All), or if not specified All
-
-                var value = Convert.ToInt32(ServerItemValue.Text);
-                myDataList = await Services.ItemService.GetItemsFromServerGetAsync(value);
-
-                if (myDataList != null && myDataList.Count > 0)
-                {
-                    // Reset the output
-                    myOutput = "";
-
-                    foreach (var ItemModel in myDataList)
-                    {
-                        // Add them line by one, use \n to force new line for output display.
-                        // Build up the output string by adding formatted ItemModel Output
-                        myOutput += ItemModel.FormatOutput() + "\n";
-                    }
-                }
-
-                await DisplayAlert("Returned List", myOutput, "OK");
+                return result;
             }
+
+            if (dataList.Count == 0)
+            {
+                return result;
+            }
+
+            // Reset the output
+            result = "";
+
+            foreach (var ItemModel in dataList)
+            {
+                // Add them line by one, use \n to force new line for output display.
+                // Build up the output string by adding formatted ItemModel Output
+                result += ItemModel.FormatOutput() + "\n";
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -138,8 +150,18 @@ namespace Game.Views
         /// <param name="e"></param>
         private async void GetItemsPost_Command(object sender, EventArgs e)
         {
-            var myOutput = "No Results";
-            var myDataList = new List<ItemModel>();
+            var result = await GetItemsPost();
+            await DisplayAlert("Returned List", result, "OK");
+        }
+
+        /// <summary>
+        /// Get Items using the HTTP Post command
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetItemsPost()
+        {
+            var result = "No Results";
+            var dataList = new List<ItemModel>();
 
             var number = Convert.ToInt32(ServerItemValue.Text);
             var level = 6;  // Max Value of 6
@@ -151,21 +173,28 @@ namespace Game.Views
 
             // will return shoes value 10 of speed.
             // Example  result = await ItemsController.Instance.GetItemsFromGame(1, 10, AttributeEnum.Speed, ItemLocationEnum.Feet, false, true);
-            myDataList = await ItemService.GetItemsFromServerPostAsync(number, level, attribute, location, category, random, updateDataBase);
+            dataList = await ItemService.GetItemsFromServerPostAsync(number, level, attribute, location, category, random, updateDataBase);
 
-            if (myDataList != null && myDataList.Count > 0)
+            if (dataList == null)
             {
-                // Reset the output
-                myOutput = "";
-
-                foreach (var ItemModel in myDataList)
-                {
-                    // Add them line by one, use \n to force new line for output display.
-                    myOutput += ItemModel.FormatOutput() + "\n";
-                }
+                return result;
             }
 
-            await DisplayAlert("Returned List", myOutput, "OK");
+            if (dataList.Count == 0)
+            {
+                return result;
+            }
+
+            // Reset the output
+            result = "";
+
+            foreach (var ItemModel in dataList)
+            {
+                // Add them line by one, use \n to force new line for output display.
+                result += ItemModel.FormatOutput() + "\n";
+            }
+
+            return result;
         }
     }
 }

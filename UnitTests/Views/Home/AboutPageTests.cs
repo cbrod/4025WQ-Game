@@ -192,7 +192,7 @@ namespace UnitTests.Views
         }
 
         [Test]
-        public void GamePage_WipeDataList_Clicked_Default_Should_Pass()
+        public void AboutPage_WipeDataList_Clicked_Default_Should_Pass()
         {
             // Arrange
             // Act
@@ -202,6 +202,32 @@ namespace UnitTests.Views
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...
+        }
+
+        [Test]
+        public async Task AboutPage_GetItemsGet_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+            // Act
+            var result = await page.GetItemsGet();
+
+            // Reset
+
+            // Assert
+            Assert.AreNotEqual("No Results",result); // Got to here, so it happened...
+        }
+
+        [Test]
+        public async Task AboutPage_GetItemsPost_Clicked_Default_Should_Pass()
+        {
+            // Arrange
+            // Act
+            var result = await page.GetItemsPost();
+
+            // Reset
+
+            // Assert
+            Assert.AreNotEqual("No Results", result); // Got to here, so it happened...
         }
     }
 }
