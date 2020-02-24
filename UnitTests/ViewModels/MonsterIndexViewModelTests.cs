@@ -132,29 +132,28 @@ namespace UnitTests.ViewModels
             Assert.AreEqual(null, result);
         }
 
-        // todo: Mike
-        //[Test]
-        //public async Task MonsterIndexViewModel_Message_Delete_Valid_Should_Pass()
-        //{
-        //    // Arrange
+        [Test]
+        public async Task MonsterIndexViewModel_Message_Delete_Valid_Should_Pass()
+        {
+            // Arrange
 
-        //    // Get the item to delete
-        //    var first = ViewModel.Dataset.FirstOrDefault();
+            // Get the item to delete
+            var first = ViewModel.Dataset.FirstOrDefault();
 
-        //    // Make a Delete Page
-        //    var myPage = new Game.Views.MonsterDeletePage(true);
+            // Make a Delete Page
+            var myPage = new Game.Views.MonsterDeletePage(true);
 
-        //    // Act
-        //    MessagingCenter.Send(myPage, "Delete", first);
+            // Act
+            MessagingCenter.Send(myPage, "Delete", first);
 
-        //    var data = await ViewModel.ReadAsync(first.Id);
+            var data = await ViewModel.ReadAsync(first.Id);
 
-        //    // Reset
-        //    await ResetDataAsync();
+            // Reset
+            await ResetDataAsync();
 
-        //    // Assert
-        //    Assert.AreEqual(null, data); // Item is removed
-        //}
+            // Assert
+            Assert.AreEqual(null, data); // Item is removed
+        }
 
         [Test]
         public async Task MonsterIndexViewModel_Delete_Valid_Should_Pass()
@@ -208,54 +207,52 @@ namespace UnitTests.ViewModels
             Assert.AreEqual(false, result);
         }
 
-        // todo: Mike
+        [Test]
+        public async Task MonsterIndexViewModel_Message_Create_Valid_Should_Pass()
+        {
+            // Arrange
 
-        //[Test]
-        //public async Task MonsterIndexViewModel_Message_Create_Valid_Should_Pass()
-        //{
-        //    // Arrange
+            // Make a new Item
+            var data = new MonsterModel();
 
-        //    // Make a new Item
-        //    var data = new MonsterModel();
+            // Make a Delete Page
+            var myPage = new Game.Views.MonsterCreatePage(true);
 
-        //    // Make a Delete Page
-        //    var myPage = new Game.Views.MonsterCreatePage(true);
+            var countBefore = ViewModel.Dataset.Count();
 
-        //    var countBefore = ViewModel.Dataset.Count();
+            // Act
+            MessagingCenter.Send(myPage, "Create", data);
+            var countAfter = ViewModel.Dataset.Count();
 
-        //    // Act
-        //    MessagingCenter.Send(myPage, "Create", data);
-        //    var countAfter = ViewModel.Dataset.Count();
+            // Reset
+            await ResetDataAsync();
 
-        //    // Reset
-        //    await ResetDataAsync();
+            // Assert
+            Assert.AreEqual(countBefore + 1, countAfter); // Count of 0 for the load was skipped
+        }
 
-        //    // Assert
-        //    Assert.AreEqual(countBefore + 1, countAfter); // Count of 0 for the load was skipped
-        //}
+        [Test]
+        public async Task MonsterIndexViewModel_Message_Update_Valid_Should_Pass()
+        {
+            // Arrange
 
-        //[Test]
-        //public async Task MonsterIndexViewModel_Message_Update_Valid_Should_Pass()
-        //{
-        //    // Arrange
+            // Get the item to delete
+            var first = ViewModel.Dataset.FirstOrDefault();
+            first.Name = "test";
 
-        //    // Get the item to delete
-        //    var first = ViewModel.Dataset.FirstOrDefault();
-        //    first.Name = "test";
+            // Make a Delete Page
+            var myPage = new Game.Views.MonsterUpdatePage(true);
 
-        //    // Make a Delete Page
-        //    var myPage = new Game.Views.MonsterUpdatePage(true);
+            // Act
+            MessagingCenter.Send(myPage, "Update", first);
+            var result = await ViewModel.ReadAsync(first.Id);
 
-        //    // Act
-        //    MessagingCenter.Send(myPage, "Update", first);
-        //    var result = await ViewModel.ReadAsync(first.Id);
+            // Reset
+            await ResetDataAsync();
 
-        //    // Reset
-        //    await ResetDataAsync();
-
-        //    // Assert
-        //    Assert.AreEqual("test", result.Name); // Count of 0 for the load was skipped
-        //}
+            // Assert
+            Assert.AreEqual("test", result.Name); // Count of 0 for the load was skipped
+        }
 
         [Test]
         public async Task MonsterIndexViewModel_Message_SetDataSource_Valid_Should_Pass()
@@ -280,30 +277,29 @@ namespace UnitTests.ViewModels
             Assert.AreEqual(0, result); // Count of 0 for the load was skipped
         }
 
-        //todo: mike
-        //[Test]
-        //public async Task MonsterIndexViewModel_Message_WipeDataList_Valid_Should_Pass()
-        //{
-        //    // Arrange
+        [Test]
+        public async Task MonsterIndexViewModel_Message_WipeDataList_Valid_Should_Pass()
+        {
+            // Arrange
 
-        //    // Make the page Page
-        //    var myPage = new Game.Views.AboutPage(true);
+            // Make the page Page
+            var myPage = new Game.Views.AboutPage(true);
 
-        //    var data = new MonsterModel();
-        //    await ViewModel.CreateAsync(data);
+            var data = new MonsterModel();
+            await ViewModel.CreateAsync(data);
 
-        //    var countBefore = ViewModel.Dataset.Count();
+            var countBefore = ViewModel.Dataset.Count();
 
-        //    // Act
-        //    MessagingCenter.Send(myPage, "WipeDataList", true);
-        //    var countAfter = ViewModel.Dataset.Count();
+            // Act
+            MessagingCenter.Send(myPage, "WipeDataList", true);
+            var countAfter = ViewModel.Dataset.Count();
 
-        //    // Reset
-        //    await ResetDataAsync();
+            // Reset
+            await ResetDataAsync();
 
-        //    // Assert
-        //    Assert.AreEqual(countBefore -1, countAfter); // Count of 0 for the load was skipped
-        //}
+            // Assert
+            Assert.AreEqual(countBefore - 1, countAfter); // Count of 0 for the load was skipped
+        }
 
         [Test]
         public async Task MonsterIndexViewModel_Update_Valid_Should_Pass()
