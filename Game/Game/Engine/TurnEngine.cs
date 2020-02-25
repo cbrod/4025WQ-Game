@@ -168,47 +168,46 @@ namespace Game.Engine
                 return false;
             }
 
+            // Set Messages to empty
             BattleMessagesModel.TurnMessage = string.Empty;
             BattleMessagesModel.TurnMessageSpecial = string.Empty;
             BattleMessagesModel.AttackStatus = string.Empty;
 
+            // Remember Current Player
             BattleMessagesModel.PlayerType = PlayerTypeEnum.Monster;
-
-            var AttackScore = Attacker.Level + Attacker.GetAttack();
-            var DefenseScore = Target.GetDefense() + Target.Level;
 
             // Choose who to attack
 
             BattleMessagesModel.TargetName = Target.Name;
             BattleMessagesModel.AttackerName = Attacker.Name;
 
+            // Set Attack and Defense
+            var AttackScore = Attacker.Level + Attacker.GetAttack();
+            var DefenseScore = Target.GetDefense() + Target.Level;
+
             BattleMessagesModel.HitStatus = RollToHitTarget(AttackScore, DefenseScore);
 
-            // It's a Miss
-            if (BattleMessagesModel.HitStatus == HitStatusEnum.Miss)
+            switch (BattleMessagesModel.HitStatus)
             {
-                BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial;
+                case HitStatusEnum.Miss:
+                    // It's a Miss
 
-                Debug.WriteLine(BattleMessagesModel.TurnMessage);
-                return true;
+                    break;
+
+                case HitStatusEnum.Hit:
+                    // It's a Hit
+                    //Calculate Damage
+                    BattleMessagesModel.DamageAmount = Attacker.GetDamageRollValue();
+
+                    Target.TakeDamage(BattleMessagesModel.DamageAmount);
+                    BattleMessagesModel.CurrentHealth = Target.CurrentHealth;
+                    BattleMessagesModel.TurnMessageSpecial = BattleMessagesModel.GetCurrentHealthMessage();
+
+                    RemoveIfDead(Target);
+                    break;
             }
-
-            // It's a Hit
-            if (BattleMessagesModel.HitStatus == HitStatusEnum.Hit)
-            {
-                //Calculate Damage
-                BattleMessagesModel.DamageAmount = Attacker.GetDamageRollValue();
-
-                Target.TakeDamage(BattleMessagesModel.DamageAmount);
-            }
-
-            BattleMessagesModel.CurrentHealth = Target.CurrentHealth;
-            BattleMessagesModel.TurnMessageSpecial = BattleMessagesModel.GetCurrentHealthMessage();
-
-            RemoveIfDead(Target);
 
             BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial;
-
             Debug.WriteLine(BattleMessagesModel.TurnMessage);
 
             return true;
@@ -320,7 +319,7 @@ namespace Game.Engine
 
             if (d20 == 1)
             {
-                BattleMessagesModel.AttackStatus = " completly misses ";
+                BattleMessagesModel.AttackStatus = " rolls 1 to completly miss ";
 
                 // Force Miss
                 BattleMessagesModel.HitStatus = HitStatusEnum.Miss;
@@ -329,7 +328,7 @@ namespace Game.Engine
 
             if (d20 == 20)
             {
-                BattleMessagesModel.AttackStatus = " Lucky Hit ";
+                BattleMessagesModel.AttackStatus = " rolls 20 for lucky hit ";
 
                 // Force Hit
                 BattleMessagesModel.HitStatus = HitStatusEnum.Hit;
@@ -339,7 +338,7 @@ namespace Game.Engine
             var ToHitScore = d20 + AttackScore;
             if (ToHitScore < DefenseScore)
             {
-                BattleMessagesModel.AttackStatus = " misses ";
+                BattleMessagesModel.AttackStatus = " rolls " + d20 + " and misses ";
                 
                 // Miss
                 BattleMessagesModel.HitStatus = HitStatusEnum.Miss;
@@ -347,7 +346,7 @@ namespace Game.Engine
                 return BattleMessagesModel.HitStatus;
             }
 
-            BattleMessagesModel.AttackStatus = " hits ";
+            BattleMessagesModel.AttackStatus = " rolls " + d20 + " and hits ";
 
             // Hit
             BattleMessagesModel.HitStatus = HitStatusEnum.Hit;
