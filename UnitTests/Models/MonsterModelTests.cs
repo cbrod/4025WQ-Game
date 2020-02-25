@@ -11,7 +11,7 @@ namespace UnitTests.Models
     public class MonsterModelTests
     {
         [TearDown]
-        public async Task TearDown()
+        public void TearDown()
         {
             ItemIndexViewModel.Instance.Dataset.Clear();
         }
@@ -91,7 +91,7 @@ namespace UnitTests.Models
             Assert.AreEqual(0, result.Order);
             Assert.AreEqual(0, result.ListOrder);
             Assert.AreEqual(1, result.Level);
-            Assert.AreEqual(0, result.ExperiencePoints);
+            Assert.AreEqual(0, result.ExperienceRemaining);
             Assert.AreEqual(0, result.CurrentHealth);
             Assert.AreEqual(0, result.MaxHealth);
             Assert.AreEqual(0, result.ExperienceTotal);
@@ -173,7 +173,7 @@ namespace UnitTests.Models
             result.ListOrder = 200;
             result.Speed = 300;
             result.Level = 400;
-            result.ExperiencePoints = 500;
+            result.ExperienceRemaining = 500;
             result.CurrentHealth = 600;
             result.MaxHealth = 700;
             result.ExperienceTotal = 800;
@@ -199,7 +199,7 @@ namespace UnitTests.Models
             Assert.AreEqual(200, result.ListOrder);
             Assert.AreEqual(300, result.Speed);
             Assert.AreEqual(400, result.Level);
-            Assert.AreEqual(500, result.ExperiencePoints);
+            Assert.AreEqual(500, result.ExperienceRemaining);
             Assert.AreEqual(600, result.CurrentHealth);
             Assert.AreEqual(700, result.MaxHealth);
             Assert.AreEqual(800, result.ExperienceTotal);

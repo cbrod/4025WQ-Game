@@ -61,7 +61,7 @@ namespace Game.Models
             Attack = newData.Attack;
 
             ExperienceTotal = newData.ExperienceTotal;
-            ExperiencePoints = newData.ExperiencePoints;
+            ExperienceRemaining = newData.ExperienceRemaining;
             CurrentHealth = newData.CurrentHealth;
             MaxHealth = newData.MaxHealth;
 

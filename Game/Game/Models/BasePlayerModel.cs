@@ -38,17 +38,17 @@ namespace Game.Models
         // Level of character or monster
         public int Level { get; set; } = 1;
 
-        // The experience points the player has used in sorting ties...
-        public int ExperiencePoints { get; set; } = 0;
-
         // Current Health
         public int CurrentHealth { get; set; } = 0;
 
         // Max Health
         public int MaxHealth { get; set; } = 0;
 
-        // Total Experience
+        // Total Experience Earned
         public int ExperienceTotal { get; set; } = 0;
+
+        // The Experience available to given up
+        public int ExperienceRemaining { get; set; }
 
         // Total speed, including level and items
         public int Speed { get; set; } = 0;
