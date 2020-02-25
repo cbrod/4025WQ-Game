@@ -4,6 +4,7 @@ using Game.Helpers;
 using Game.Models;
 using Game.ViewModels;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace UnitTests.Helpers
 {
@@ -204,7 +205,6 @@ namespace UnitTests.Helpers
             DiceHelper.EnableForcedRolls();
             DiceHelper.SetForcedRollValue(2);
 
-
             var expected = ItemIndexViewModel.Instance.Dataset.ElementAt(1).Id;
 
             // Act
@@ -215,6 +215,59 @@ namespace UnitTests.Helpers
 
             // Assert
             Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        public void RandomPlayerHelper_GetRandomCharacter_InValid_Empty_CharacterList_Should_Return_New()
+        {
+            // Arrange
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+
+            // Act
+            var result = RandomPlayerHelper.GetRandomCharacter(1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, result.Name.Contains("Elf"));
+        }
+
+        [Test]
+        public async Task RandomPlayerHelper_GetRandomCharacter_Valid_CharacterList_1_Should_Return_1()
+        {
+            // Arrange
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "1" });
+
+            // Act
+            var result = RandomPlayerHelper.GetRandomCharacter(1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, result.Guid.Contains("1"));
+        }
+
+        [Test]
+        public async Task RandomPlayerHelper_GetRandomCharacter_Valid_CharacterList_3_Should_Return_2()
+        {
+            // Arrange
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "1" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "2" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "3" });
+
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetRandomCharacter(1);
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual(true, result.Guid.Contains("2"));
         }
     }
 }
