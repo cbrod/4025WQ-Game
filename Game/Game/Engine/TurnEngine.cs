@@ -187,6 +187,8 @@ namespace Game.Engine
             // It's a Miss
             if (BattleMessagesModel.HitStatus == HitStatusEnum.Miss)
             {
+                BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial;
+
                 Debug.WriteLine(BattleMessagesModel.TurnMessage);
                 return true;
             }
