@@ -28,12 +28,11 @@ namespace UnitTests.ViewModels
             ViewModel = MonsterIndexViewModel.Instance;
         }
 
-        /// <summary>
-        /// Reset the data store
-        /// </summary>
-        public async Task ResetDataAsync()
+        [TearDown]
+        public async Task TearDown()
         {
-            await ViewModel.WipeDataListAsync();
+            MonsterIndexViewModel.Instance.Dataset.Clear();
+            //await ViewModel.WipeDataListAsync();
         }
 
         [Test]
@@ -103,7 +102,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(dataTest.Id, result.Id);
@@ -126,7 +124,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, result);
@@ -136,6 +133,7 @@ namespace UnitTests.ViewModels
         public async Task MonsterIndexViewModel_Message_Delete_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new MonsterModel());
 
             // Get the item to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -149,7 +147,6 @@ namespace UnitTests.ViewModels
             var data = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, data); // Item is removed
@@ -159,6 +156,7 @@ namespace UnitTests.ViewModels
         public async Task MonsterIndexViewModel_Delete_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new MonsterModel());
             var first = ViewModel.Dataset.FirstOrDefault();
 
             // Act
@@ -166,9 +164,6 @@ namespace UnitTests.ViewModels
             var exists = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Delete returned pass
@@ -208,7 +203,7 @@ namespace UnitTests.ViewModels
         }
 
         [Test]
-        public async Task MonsterIndexViewModel_Message_Create_Valid_Should_Pass()
+        public void MonsterIndexViewModel_Message_Create_Valid_Should_Pass()
         {
             // Arrange
 
@@ -225,7 +220,6 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(countBefore + 1, countAfter); // Count of 0 for the load was skipped
@@ -235,6 +229,7 @@ namespace UnitTests.ViewModels
         public async Task MonsterIndexViewModel_Message_Update_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new MonsterModel());
 
             // Get the item to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -248,7 +243,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual("test", result.Name); // Count of 0 for the load was skipped
@@ -271,7 +265,6 @@ namespace UnitTests.ViewModels
 
             // Reset
             await ViewModel.SetDataSource(0);
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(0, result); // Count of 0 for the load was skipped
@@ -285,8 +278,9 @@ namespace UnitTests.ViewModels
             // Make the page Page
             var myPage = new Game.Views.AboutPage(true);
 
-            var data = new MonsterModel();
-            await ViewModel.CreateAsync(data);
+            ViewModel.Dataset.Clear();
+
+            await ViewModel.CreateAsync(new MonsterModel());
 
             var countBefore = ViewModel.Dataset.Count();
 
@@ -295,16 +289,16 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
-            Assert.AreEqual(countBefore - 1, countAfter); // Count of 0 for the load was skipped
+            Assert.AreEqual(6, countAfter); // Count of 0 for the load was skipped
         }
 
         [Test]
         public async Task MonsterIndexViewModel_Update_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new MonsterModel());
 
             // Find the First ID
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -369,9 +363,6 @@ namespace UnitTests.ViewModels
 
             // Reset
 
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
-
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
         }
@@ -408,9 +399,10 @@ namespace UnitTests.ViewModels
         }
 
         [Test]
-        public void MonsterIndexViewModel_ExecuteLoadDataCommand_InValid_Exception_Should_Fail()
+        public async Task MonsterIndexViewModel_ExecuteLoadDataCommand_InValid_Exception_Should_Fail()
         {
             // Arrange
+            await ViewModel.CreateAsync(new MonsterModel());
             var oldDataset = ViewModel.Dataset;
 
             // Null dataset will throw
@@ -444,7 +436,6 @@ namespace UnitTests.ViewModels
 
             // Reset
             ViewModel.IsBusy = false;
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.AreEqual(0, count); // Count of 0 for the load was skipped
@@ -459,7 +450,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.SetDataSource(1);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result); // Count of 0 for the load was skipped
@@ -474,7 +464,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.SetDataSource(0);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result); // Count of 0 for the load was skipped
@@ -493,9 +482,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.CreateUpdateAsync(data);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
@@ -519,9 +505,6 @@ namespace UnitTests.ViewModels
 
             // Reset
 
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
-
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
         }
@@ -541,7 +524,7 @@ namespace UnitTests.ViewModels
         }
 
         [Test]
-        public async Task MonsterIndexViewModel_Create_Sync_Valid_Update_Should_Pass()
+        public void MonsterIndexViewModel_Create_Sync_Valid_Update_Should_Pass()
         {
             // Arrange
             var data = new MonsterModel
@@ -553,9 +536,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.Create_Sync(data);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass

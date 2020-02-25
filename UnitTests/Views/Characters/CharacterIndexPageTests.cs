@@ -115,34 +115,24 @@ namespace UnitTests.Views
         }
 
         [Test]
-        public async Task CharacterIndexPage_OnAppearing_Valid_Should_Pass()
+        public void CharacterIndexPage_OnAppearing_Valid_Should_Pass()
         {
             // Arrange
-
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
-
             CharacterIndexViewModel ViewModel = CharacterIndexViewModel.Instance;
 
             // Act
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...
         }
 
         [Test]
-        public async Task CharacterIndexPage_OnAppearing_Valid_Empty_Should_Pass()
+        public void CharacterIndexPage_OnAppearing_Valid_Empty_Should_Pass()
         {
             // Arrange
-
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
 
             CharacterIndexViewModel ViewModel = CharacterIndexViewModel.Instance;
             ViewModel.Dataset.Clear();
@@ -151,9 +141,6 @@ namespace UnitTests.Views
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...

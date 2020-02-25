@@ -13,9 +13,10 @@ namespace UnitTests.Models
         [TearDown]
         public async Task TearDown()
         {
-            await Game.Helpers.DataSetsHelper.WipeDataInSequence();
+            // For Tear down delete the Item Dataset.
+            // Test that need the Item Dataset should set it
+            ItemIndexViewModel.Instance.Dataset.Clear();
         }
-
 
         [Test]
         public void CharacterModel_Constructor_Default_Should_Pass()
@@ -332,7 +333,7 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
-            Assert.AreEqual(true, result);
+            Assert.AreEqual(false, result);
         }
 
         [Test]
@@ -486,8 +487,11 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void CharacterModel_DropAllItems_Default_Should_Pass()
+        public async Task CharacterModel_DropAllItems_Default_Should_Pass()
         {
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
 
             // ArDefense
@@ -527,10 +531,14 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void CharacterModel_AddItem_Default_Should_Pass()
+        public async Task CharacterModel_AddItem_Default_Should_Pass()
         {
             // ArDefense
             var data = new CharacterModel();
+
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
 
             // Act
@@ -545,10 +553,14 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void CharacterModel_AddItem_Default_Replace_Should_Pass()
+        public async Task CharacterModel_AddItem_Default_Replace_Should_Pass()
         {
             // ArDefense
             var data = new CharacterModel();
+
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
             var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
@@ -582,10 +594,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
 
-            
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new CharacterModel();
 
             // Add the first item
@@ -603,6 +611,7 @@ namespace UnitTests.Models
             var result = data.GetItemBonus(AttributeEnum.Attack);
 
             // Reset
+            
 
             // Assert
             Assert.AreEqual(7654321, result);
@@ -622,10 +631,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 50000, Id = "RightFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
-
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new CharacterModel();
 
@@ -664,10 +669,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Defense, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Defense, Value = 7000000, Id = "feet" });
 
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new CharacterModel();
 
             // Add the first item
@@ -704,10 +705,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Speed, Value = 50000, Id = "RightFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Speed, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Speed, Value = 7000000, Id = "feet" });
-
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new CharacterModel();
 
@@ -746,10 +743,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
 
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new CharacterModel();
             data.Level = 1;
 
@@ -772,7 +765,7 @@ namespace UnitTests.Models
 
             // Reset
             Game.Helpers.DiceHelper.DisableForcedRolls();
- 
+
             // Assert
             Assert.AreEqual(2, result);
         }
@@ -785,9 +778,6 @@ namespace UnitTests.Models
             Game.Helpers.DataSetsHelper.WarmUp();
 
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 300, Id = "PrimaryHand" , Damage=1});
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new CharacterModel();
             data.Level = 1;
@@ -819,9 +809,6 @@ namespace UnitTests.Models
 
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 300, Id = "PrimaryHand", Damage = 1 });
 
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new CharacterModel();
             data.Level = 1;
 
@@ -852,9 +839,6 @@ namespace UnitTests.Models
 
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 300, Id = "PrimaryHand", Damage = 1 });
 
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new CharacterModel();
             data.Level = 1;
 
@@ -871,12 +855,9 @@ namespace UnitTests.Models
 
             // Reset
             Game.Helpers.DiceHelper.DisableForcedRolls();
-
+ 
             // Assert
             Assert.AreEqual("1 + 1D 1", result);
         }
-
-
-        
     }
 }

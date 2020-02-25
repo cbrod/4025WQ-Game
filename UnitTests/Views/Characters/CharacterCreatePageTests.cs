@@ -184,6 +184,7 @@ namespace UnitTests.Views
         public void CharacterCreatePage_RollDice_Clicked_Default_Should_Pass()
         {
             // Arrange
+            page.ViewModel.Data = new CharacterModel();
 
             // Act
             page.RollDice_Clicked(null,null);
@@ -226,6 +227,7 @@ namespace UnitTests.Views
         public void CharacterCreatePage_ShowPopup_Default_Should_Pass()
         {
             // Arrange
+            page.ViewModel.Data = new CharacterModel();
 
             // Act
             page.ShowPopup(ItemLocationEnum.Head);

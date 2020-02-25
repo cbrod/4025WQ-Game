@@ -28,12 +28,10 @@ namespace UnitTests.ViewModels
             ViewModel = CharacterIndexViewModel.Instance;
         }
 
-        /// <summary>
-        /// Reset the data store
-        /// </summary>
-        public async Task ResetDataAsync()
+        [TearDown]
+        public async Task TearDown()
         {
-            await ViewModel.WipeDataListAsync();
+            ViewModel.Dataset.Clear();
         }
 
         [Test]
@@ -103,7 +101,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(dataTest.Id, result.Id);
@@ -126,7 +123,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, result);
@@ -136,6 +132,8 @@ namespace UnitTests.ViewModels
         public async Task CharacterIndexViewModel_Message_Delete_Valid_Should_Pass()
         {
             // Arrange
+
+            await ViewModel.CreateAsync(new CharacterModel());
 
             // Get the item to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -149,7 +147,6 @@ namespace UnitTests.ViewModels
             var data = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, data); // Item is removed
@@ -159,6 +156,8 @@ namespace UnitTests.ViewModels
         public async Task CharacterIndexViewModel_Delete_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new CharacterModel());
+
             var first = ViewModel.Dataset.FirstOrDefault();
 
             // Act
@@ -166,9 +165,6 @@ namespace UnitTests.ViewModels
             var exists = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Delete returned pass
@@ -225,7 +221,6 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(countBefore + 1, countAfter); // Count of 0 for the load was skipped
@@ -235,6 +230,7 @@ namespace UnitTests.ViewModels
         public async Task CharacterIndexViewModel_Message_Update_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new CharacterModel());
 
             // Get the item to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -248,7 +244,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual("test", result.Name); // Count of 0 for the load was skipped
@@ -271,7 +266,6 @@ namespace UnitTests.ViewModels
 
             // Reset
             await ViewModel.SetDataSource(0);
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(0, result); // Count of 0 for the load was skipped
@@ -295,16 +289,16 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
-            Assert.AreEqual(countBefore -1, countAfter); // Count of 0 for the load was skipped
+            Assert.AreEqual(7, countAfter); // Count of 0 for the load was skipped
         }
 
         [Test]
         public async Task CharacterIndexViewModel_Update_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new CharacterModel());
 
             // Find the First ID
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -369,9 +363,6 @@ namespace UnitTests.ViewModels
 
             // Reset
 
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
-
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
         }
@@ -408,10 +399,12 @@ namespace UnitTests.ViewModels
         }
 
         [Test]
-        public void CharacterIndexViewModel_ExecuteLoadDataCommand_InValid_Exception_Should_Fail()
+        public async Task CharacterIndexViewModel_ExecuteLoadDataCommand_InValid_Exception_Should_Fail()
         {
             // Arrange
             var oldDataset = ViewModel.Dataset;
+
+            await ViewModel.CreateAsync(new CharacterModel());
 
             // Null dataset will throw
 
@@ -459,7 +452,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.SetDataSource(1);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result); // Count of 0 for the load was skipped
@@ -474,7 +466,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.SetDataSource(0);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result); // Count of 0 for the load was skipped
@@ -493,9 +484,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.CreateUpdateAsync(data);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
@@ -518,9 +506,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.CreateUpdateAsync(data);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass
@@ -553,9 +538,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.Create_Sync(data);
 
             // Reset
-
-            // Need to clear the added item, and reload the dataset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(true, result);  // Update returned Pass

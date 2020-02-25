@@ -13,7 +13,9 @@ namespace UnitTests.Models
         [TearDown]
         public async Task TearDown()
         {
-            await Game.Helpers.DataSetsHelper.WipeDataInSequence();
+            // For Tear down delete the Item Dataset.
+            // Test that need the Item Dataset should set it
+            ItemIndexViewModel.Instance.Dataset.Clear();
         }
 
         [Test]
@@ -302,6 +304,54 @@ namespace UnitTests.Models
             // Reset
 
             // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_AddExperience_InValid_Neg_Should_Fail()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>();
+
+            // Act
+            var result = data.AddExperience(-1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_AddExperience_InValid_Max_Level_Should_Fail()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>();
+            data.Level = 1000;
+
+            // Act
+            var result = data.AddExperience(10);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_AddExperience_Valid_Level__Up_Should_Pass()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>();
+            data.Level = 1;
+            data.ExperienceTotal = 10000;
+
+            // Act
+            var result = data.AddExperience(1);
+
+            // Reset
+
+            // Assert
             Assert.AreEqual(true, result);
         }
 
@@ -456,8 +506,11 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void BasePlayerModel_DropAllItems_Default_Should_Pass()
+        public async Task BasePlayerModel_DropAllItems_Default_Should_Pass()
         {
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
 
             // Arrange
@@ -497,10 +550,14 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void BasePlayerModel_AddItem_Default_Should_Pass()
+        public async Task BasePlayerModel_AddItem_Default_Should_Pass()
         {
             // Arrange
             var data = new BasePlayerModel<CharacterModel>();
+
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
 
             // Act
@@ -516,9 +573,13 @@ namespace UnitTests.Models
 
         [Test]
         public async Task BasePlayerModel_AddItem_Default_Replace_Should_Pass()
-        {
+        { 
             // Arrange
             var data = new BasePlayerModel<CharacterModel>();
+
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
             var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
@@ -536,7 +597,6 @@ namespace UnitTests.Models
             Assert.AreEqual(itemOld.Id, result.Id);
         }
 
-
         [Test]
         public async Task BasePlayerModel_GetItemBonus_Default_Attack_Should_Pass()
         {
@@ -551,10 +611,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 50000, Id = "RightFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
-
-            
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new BasePlayerModel<CharacterModel>();
 
@@ -593,10 +649,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
 
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new BasePlayerModel<CharacterModel>();
 
             // Add the first item
@@ -633,10 +685,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Defense, Value = 50000, Id = "RightFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Defense, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Defense, Value = 7000000, Id = "feet" });
-
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new BasePlayerModel<CharacterModel>();
 
@@ -675,10 +723,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Speed, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Speed, Value = 7000000, Id = "feet" });
 
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new BasePlayerModel<CharacterModel>();
 
             // Add the first item
@@ -716,10 +760,6 @@ namespace UnitTests.Models
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 600000, Id = "LeftFinger" });
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 7000000, Id = "feet" });
 
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
-
             var data = new BasePlayerModel<CharacterModel>();
             data.Level = 1;
 
@@ -742,7 +782,7 @@ namespace UnitTests.Models
 
             // Reset
             Game.Helpers.DiceHelper.DisableForcedRolls();
- 
+
             // Assert
             Assert.AreEqual(2, result);
         }
@@ -755,9 +795,6 @@ namespace UnitTests.Models
             Game.Helpers.DataSetsHelper.WarmUp();
 
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 300, Id = "PrimaryHand" , Damage=1});
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new BasePlayerModel<CharacterModel>();
             data.Level = 1;
@@ -775,6 +812,7 @@ namespace UnitTests.Models
 
             // Reset
             Game.Helpers.DiceHelper.DisableForcedRolls();
+            
 
             // Assert
             Assert.AreEqual(1, result);
@@ -808,6 +846,7 @@ namespace UnitTests.Models
 
             // Reset
             Game.Helpers.DiceHelper.DisableForcedRolls();
+            
 
             // Assert
             Assert.AreEqual("1D 1", result);
@@ -821,9 +860,6 @@ namespace UnitTests.Models
             Game.Helpers.DataSetsHelper.WarmUp();
 
             await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 300, Id = "PrimaryHand", Damage = 1 });
-
-            var itemOld = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-            var itemNew = ItemIndexViewModel.Instance.Dataset.LastOrDefault();
 
             var data = new BasePlayerModel<CharacterModel>();
             data.Level = 1;
@@ -847,8 +883,11 @@ namespace UnitTests.Models
         }
 
         [Test]
-        public void BasePlayerModel_ItemSlotsFormatOutput_Full_Should_Pass()
+        public async Task BasePlayerModel_ItemSlotsFormatOutput_Full_Should_Pass()
         {
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 1, Id = "head" });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Attribute = AttributeEnum.Attack, Value = 20, Id = "necklass" });
+
             var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
 
             // Arrange
@@ -873,12 +912,9 @@ namespace UnitTests.Models
             Assert.AreEqual(true, result.Contains("Attack"));
         }
 
-
         [Test]
         public void BasePlayerModel_ItemSlotsFormatOutput_Empty_Should_Pass()
         {
-            var item = ItemIndexViewModel.Instance.Dataset.FirstOrDefault();
-
             // Arrange
             var data = new BasePlayerModel<CharacterModel>
             {

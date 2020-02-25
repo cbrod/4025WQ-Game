@@ -115,12 +115,9 @@ namespace UnitTests.Views
         }
 
         [Test]
-        public async Task MonsterIndexPage_OnAppearing_Valid_Should_Pass()
+        public void MonsterIndexPage_OnAppearing_Valid_Should_Pass()
         {
             // Arrange
-
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
 
             MonsterIndexViewModel ViewModel = MonsterIndexViewModel.Instance;
 
@@ -128,9 +125,6 @@ namespace UnitTests.Views
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...
@@ -141,9 +135,6 @@ namespace UnitTests.Views
         {
             // Arrange
 
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
-
             MonsterIndexViewModel ViewModel = MonsterIndexViewModel.Instance;
             ViewModel.Dataset.Clear();
 
@@ -151,9 +142,6 @@ namespace UnitTests.Views
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...

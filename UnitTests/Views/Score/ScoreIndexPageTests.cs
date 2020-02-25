@@ -119,18 +119,12 @@ namespace UnitTests.Views
         {
             // Arrange
 
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
-
             ScoreIndexViewModel ViewModel = ScoreIndexViewModel.Instance;
 
             // Act
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...
@@ -141,9 +135,6 @@ namespace UnitTests.Views
         {
             // Arrange
 
-            // Add each model here to warm up and load it.
-            Game.Helpers.DataSetsHelper.WarmUp();
-
             ScoreIndexViewModel ViewModel = ScoreIndexViewModel.Instance;
             ViewModel.Dataset.Clear();
 
@@ -151,9 +142,6 @@ namespace UnitTests.Views
             OnAppearing();
 
             // Reset
-            await ViewModel.WipeDataListAsync();
-            ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
 
             // Assert
             Assert.IsTrue(true); // Got to here, so it happened...

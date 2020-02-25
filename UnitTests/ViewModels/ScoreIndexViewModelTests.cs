@@ -26,14 +26,10 @@ namespace UnitTests.ViewModels
             ViewModel = ScoreIndexViewModel.Instance;
         }
 
-        /// <summary>
-        /// Reset the data store
-        /// </summary>
-        public async Task ResetDataAsync()
+        [TearDown]
+        public async Task TearDown()
         {
-            await ViewModel.WipeDataListAsync();
             ViewModel.Dataset.Clear();
-            ViewModel.ForceDataRefresh();
         }
 
         [Test]
@@ -103,7 +99,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfScoreExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(dataTest.Id, result.Id);
@@ -126,7 +121,6 @@ namespace UnitTests.ViewModels
             var result = ViewModel.CheckIfScoreExists(dataTest);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, result);
@@ -136,6 +130,7 @@ namespace UnitTests.ViewModels
         public async Task ScoreIndexViewModel_Message_Delete_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new ScoreModel());
 
             // Get the Score to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -149,7 +144,6 @@ namespace UnitTests.ViewModels
             var data = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(null, data); // Score is removed
@@ -173,7 +167,6 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(countBefore + 1, countAfter); // Count of 0 for the load was skipped
@@ -183,6 +176,7 @@ namespace UnitTests.ViewModels
         public async Task ScoreIndexViewModel_Message_Update_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new ScoreModel());
 
             // Get the Score to delete
             var first = ViewModel.Dataset.FirstOrDefault();
@@ -196,7 +190,6 @@ namespace UnitTests.ViewModels
             var result = await ViewModel.ReadAsync(first.Id);
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual("test", result.Name); // Count of 0 for the load was skipped
@@ -219,7 +212,6 @@ namespace UnitTests.ViewModels
 
             // Reset
             await ViewModel.SetDataSource(0);
-            await ResetDataAsync();
 
             // Assert
             Assert.AreEqual(0, result); // Count of 0 for the load was skipped
@@ -229,6 +221,7 @@ namespace UnitTests.ViewModels
         public async Task ScoreIndexViewModel_Message_WipeDataList_Valid_Should_Pass()
         {
             // Arrange
+            await ViewModel.CreateAsync(new ScoreModel());
 
             // Make the page Page
             var myPage = new Game.Views.AboutPage(true);
@@ -243,10 +236,9 @@ namespace UnitTests.ViewModels
             var countAfter = ViewModel.Dataset.Count();
 
             // Reset
-            await ResetDataAsync();
 
             // Assert
-            Assert.AreEqual(countBefore - 1, countAfter); // Count of 0 for the load was skipped
+            Assert.AreEqual(2, countAfter); // Count of 0 for the load was skipped
         }
     }
 }

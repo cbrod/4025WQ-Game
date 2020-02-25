@@ -162,7 +162,7 @@ namespace UnitTests.Views
         {
             // Arrange
             ItemIndexViewModel.Instance.Dataset.Clear();
-            var createStatus = await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Location = ItemLocationEnum.Head });
+            await ItemIndexViewModel.Instance.CreateAsync(new ItemModel { Location = ItemLocationEnum.Head });
 
             var character = new CharacterModel();
             character.Head = ItemIndexViewModel.Instance.GetLocationItems(ItemLocationEnum.Head).First().Id;
@@ -172,7 +172,6 @@ namespace UnitTests.Views
             var result = page.GetItemToDisplay(ItemLocationEnum.Head);
 
             // Reset
-            var wipeStatus = await Game.Helpers.DataSetsHelper.WipeDataInSequence();
 
             // Assert
             Assert.AreEqual(2, result.Children.Count()); // Got to here, so it happened...
@@ -189,7 +188,6 @@ namespace UnitTests.Views
             var result = page.GetItemToDisplay(ItemLocationEnum.Head);
 
             // Reset
-            await Game.Helpers.DataSetsHelper.WipeDataInSequence();
 
             // Assert
             Assert.AreEqual(2, result.Children.Count()); // Got to here, so it happened...
