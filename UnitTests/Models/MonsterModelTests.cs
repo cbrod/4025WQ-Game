@@ -91,7 +91,7 @@ namespace UnitTests.Models
             Assert.AreEqual(0, result.Order);
             Assert.AreEqual(0, result.ListOrder);
             Assert.AreEqual(1, result.Level);
-            Assert.AreEqual(0, result.ExperienceRemaining);
+            Assert.AreEqual(299, result.ExperienceRemaining);
             Assert.AreEqual(0, result.CurrentHealth);
             Assert.AreEqual(0, result.MaxHealth);
             Assert.AreEqual(0, result.ExperienceTotal);

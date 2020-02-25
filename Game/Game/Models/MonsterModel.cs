@@ -24,6 +24,8 @@ namespace Game.Models
             Difficulty = DifficultyEnum.Average;
             UniqueItem = null;
             ImageURI = "troll.png";
+            ExperienceTotal = 0;
+            ExperienceRemaining = Helpers.LevelTableHelper.Instance.LevelDetailsList[Level + 1].Experience - 1;
         }
 
         /// <summary>
