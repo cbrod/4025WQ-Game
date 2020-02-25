@@ -202,6 +202,8 @@ namespace Game.Helpers
                 ImageURI = RandomPlayerHelper.GetCharacterImage()
             };
 
+            result.MaxHealth = DiceHelper.RollDice(MaxLevel, 10);
+
             // Level up to the new level
             result.LevelUpToValue(result.Level);
 
