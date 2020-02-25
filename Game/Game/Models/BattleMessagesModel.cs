@@ -25,7 +25,10 @@
         
         // Turn Special Message
         public string TurnMessageSpecial = string.Empty;
-        
+
+        // Turn Experience Earned Message
+        public string ExperienceEarned = string.Empty;
+
         // Level Up Message
         public string LevelUpMessage = string.Empty;
 
