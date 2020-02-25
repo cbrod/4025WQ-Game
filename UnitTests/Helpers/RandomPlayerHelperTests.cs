@@ -269,5 +269,28 @@ namespace UnitTests.Helpers
             // Assert
             Assert.AreEqual(true, result.Guid.Contains("2"));
         }
+
+
+        [Test]
+        public async Task RandomPlayerHelper_GetRandomCharacter_Valid_Health_Should_Be_Correct()
+        {
+            // Arrange
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "1" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "2" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Guid = "3" });
+
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(2);
+
+            // Act
+            var result = RandomPlayerHelper.GetRandomCharacter(1);
+
+            // Reset
+            DiceHelper.DisableForcedRolls();
+
+            // Assert
+            Assert.AreEqual(result.MaxHealth, result.CurrentHealth);
+        }
     }
 }
