@@ -219,7 +219,7 @@ namespace Game.Helpers
             result.LevelUpToValue(result.Level);
 
             // Enter Battle at full health
-            result.CurrentHealth = MaxLevel;    
+            result.CurrentHealth = result.MaxHealth;    
 
             return result;
         }
