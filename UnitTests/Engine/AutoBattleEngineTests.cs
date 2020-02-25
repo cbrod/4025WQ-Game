@@ -4,6 +4,8 @@ using Game.Engine;
 using Game.Models;
 using System.Threading.Tasks;
 using Game.Helpers;
+using System.Linq;
+using Game.ViewModels;
 
 namespace UnitTests.Engine
 {
@@ -107,6 +109,62 @@ namespace UnitTests.Engine
 
             //Assert
             Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public async Task AutoBattleEngine_CreateCharacterParty_Characters_Should_Assign_6()
+        {
+            //Arrange
+            Engine.MaxNumberPartyCharacters = 6;
+
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "1" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "2" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "3" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "4" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "5" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "6" });
+            await CharacterIndexViewModel.Instance.CreateAsync(new CharacterModel { Name = "7" });
+
+            //Act
+            var result = Engine.CreateCharacterParty();
+
+            //Reset
+
+            //Assert
+            Assert.AreEqual(6, Engine.CharacterList.Count());
+            Assert.AreEqual("6", Engine.CharacterList.ElementAt(5).Name);
+        }
+
+        [Test]
+        public void AutoBattleEngine_CreateCharacterParty_Characters_CharacterIndex_None_Should_Create_6()
+        {
+            //Arrange
+            Engine.MaxNumberPartyCharacters = 6;
+
+            CharacterIndexViewModel.Instance.Dataset.Clear();
+
+            //var CharacterPlayerMike = new PlayerInfoModel(
+            //                new CharacterModel
+            //                {
+            //                    Speed = -1,
+            //                    Level = 10,
+            //                    CurrentHealth = 11,
+            //                    ExperiencePoints = 1,
+            //                    Name = "Mike",
+            //                    ListOrder = 1,
+            //                });
+
+            //Engine.CharacterList.Add(CharacterPlayerMike);
+
+            //Act
+            var result = Engine.CreateCharacterParty();
+
+            //Reset
+
+            //Assert
+            Assert.AreEqual(6, Engine.CharacterList.Count());
         }
     }
 }

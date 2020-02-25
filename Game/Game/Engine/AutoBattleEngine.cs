@@ -89,20 +89,20 @@ namespace Game.Engine
         /// <summary>
         /// Create Characters for Party
         /// </summary>
-        private bool CreateCharacterParty()
+        public bool CreateCharacterParty()
         {
             // Picks 6 Characters
 
             // To use your own characters, populate the List before calling RunAutoBattle
 
             // Will first pull from existing characters
-            for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
+            foreach (var data in CharacterIndexViewModel.Instance.Dataset)
             {
-                foreach (var data in CharacterIndexViewModel.Instance.Dataset)
+                if (CharacterList.Count() >= MaxNumberPartyCharacters)
                 {
-                    PopulateCharacterList(data);
+                    break;
                 }
-                break;
+                PopulateCharacterList(data);
             }
 
             //If there are not enough will add random ones
