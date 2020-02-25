@@ -184,11 +184,10 @@ namespace Game.Engine
 
             BattleMessagesModel.HitStatus = RollToHitTarget(AttackScore, DefenseScore);
 
-            Debug.WriteLine(BattleMessagesModel.GetTurnMessage());
-
             // It's a Miss
             if (BattleMessagesModel.HitStatus == HitStatusEnum.Miss)
             {
+                Debug.WriteLine(BattleMessagesModel.TurnMessage);
                 return true;
             }
 
@@ -292,7 +291,7 @@ namespace Game.Engine
             foreach (var ItemModel in myItemList)
             {
                 BattleScore.ItemsDroppedList += ItemModel.FormatOutput() + "\n";
-                DroppedMessage += ItemModel.Name + " ";
+                DroppedMessage += ItemModel.Name + " , ";
             }
 
             ItemPool.AddRange(myItemList);
@@ -364,7 +363,7 @@ namespace Game.Engine
 
             // The Number drop can be Up to the Round Count, but may be less.  
             // Negative results in nothing dropped
-            var NumberToDrop = DiceHelper.RollDice(1, round) - DiceHelper.RollDice(1, round);
+            var NumberToDrop = (DiceHelper.RollDice(1, round+1)-1);
 
             var result = new List<ItemModel>();
 

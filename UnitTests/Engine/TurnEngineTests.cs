@@ -375,7 +375,9 @@ namespace UnitTests.Engine
             var PlayerInfo = new PlayerInfoModel(player);
 
             DiceHelper.EnableForcedRolls();
-            DiceHelper.SetForcedRollValue(1);
+            
+            // Drop is 0-Number, so 2 will yield 1
+            DiceHelper.SetForcedRollValue(2);   
 
             // Act
             var result = Engine.DropItems(PlayerInfo);
