@@ -423,6 +423,12 @@ namespace Game.Models
             return false;
         }
 
+        /// <summary>
+        /// Calculate The amount of Experience to give
+        /// Reduce the remaining by what was given
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <returns></returns>
         public int CalculateExperienceEarned(int damage) {
             if (damage < 1)
             {
