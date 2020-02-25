@@ -5,6 +5,8 @@ using Game.Views;
 using Xamarin.Forms.Mocks;
 using Xamarin.Forms;
 using Game.Helpers;
+using Game.Models;
+using Game.Engine;
 
 namespace UnitTests.Views
 {
@@ -54,6 +56,18 @@ namespace UnitTests.Views
 
             DiceHelper.EnableForcedRolls();
             DiceHelper.SetForcedRollValue(3);
+
+            DiceHelper.EnableForcedRolls();
+            DiceHelper.SetForcedRollValue(3);
+
+            var data = new CharacterModel { Level = 1, MaxHealth = 10 };
+
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
+            page.Engine.CharacterList.Add(new PlayerInfoModel(data));
 
             // Act
             page.AutobattleButton_Clicked(null, null);
