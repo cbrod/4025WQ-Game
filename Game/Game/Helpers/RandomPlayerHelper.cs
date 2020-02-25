@@ -173,8 +173,19 @@ namespace Game.Helpers
             return result;
         }
 
+        /// <summary>
+        /// Create Random Character for the battle
+        /// </summary>
+        /// <param name="MaxLevel"></param>
+        /// <returns></returns>
         public static CharacterModel GetRandomCharacter(int MaxLevel)
         {
+            // If there are no characters in the system, return a default one
+            if (CharacterIndexViewModel.Instance.Dataset.Count == 0)
+            {
+                return new CharacterModel();
+            }
+
             var rnd = DiceHelper.RollDice(1, CharacterIndexViewModel.Instance.Dataset.Count);
 
             var result = new CharacterModel(CharacterIndexViewModel.Instance.Dataset.ElementAt(rnd - 1))
