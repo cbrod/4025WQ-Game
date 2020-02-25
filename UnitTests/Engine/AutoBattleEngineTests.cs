@@ -59,6 +59,15 @@ namespace UnitTests.Engine
             DiceHelper.EnableForcedRolls();
             DiceHelper.SetForcedRollValue(3);
 
+            var data = new CharacterModel { Level = 1, MaxHealth = 10 };
+
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+            Engine.CharacterList.Add(new PlayerInfoModel(data));
+
             //Act
             var result = Engine.RunAutoBattle();
 
