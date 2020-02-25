@@ -57,7 +57,7 @@ namespace Game.Engine
         {
             for (var i = 0; i < MaxNumberPartyMonsters; i++)
             {
-                var data = new MonsterModel();
+                var data = new MonsterModel { Attack=10, CurrentHealth=1};
                 // Help identify which Monster it is
                 data.Name += " " + MonsterList.Count() + 1;
                 MonsterList.Add(new PlayerInfoModel(data));
@@ -245,26 +245,6 @@ namespace Game.Engine
 
             // Return the next element
             return PlayerList[index + 1];
-
-            //// Else go and pick the next player in the list...
-            //for (var i = 0; i < PlayerCount; i++)
-            //{
-            //    // Look for current Player in the list
-            //    if (PlayerList[i].Guid.Equals(PlayerCurrent.Guid))
-            //    {
-            //        if (i < PlayerList.Count() - 1) // 0 based...
-            //        {
-            //            return PlayerList[i + 1];
-            //        }
-            //        else
-            //        {
-            //            // Return the first in the list...
-            //            return PlayerList.FirstOrDefault();
-            //        }
-            //    }
-            //}
-
-//            return null;
         }
 
         /// <summary>
