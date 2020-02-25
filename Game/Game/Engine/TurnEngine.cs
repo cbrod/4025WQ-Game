@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 using Game.Models;
 using Game.Helpers;
+using Game.ViewModels;
 
 namespace Game.Engine
 {
@@ -206,6 +207,7 @@ namespace Game.Engine
             RemoveIfDead(Target);
 
             BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial;
+
             Debug.WriteLine(BattleMessagesModel.TurnMessage);
 
             return true;
@@ -238,7 +240,7 @@ namespace Game.Engine
         public bool TargedDied(PlayerInfoModel Target)
         {
             // Mark Status in output
-            BattleMessagesModel.TurnMessageSpecial = " and causes death";
+            BattleMessagesModel.TurnMessageSpecial = " and causes death. ";
 
             // Remove target from list...
 
@@ -277,6 +279,8 @@ namespace Game.Engine
         /// <param name="Target"></param>
         public int DropItems(PlayerInfoModel Target)
         {
+            var DroppedMessage = " Items Dropped : ";
+
             // Drop Items to ItemModel Pool
             var myItemList = Target.DropAllItems();
 
@@ -288,10 +292,17 @@ namespace Game.Engine
             foreach (var ItemModel in myItemList)
             {
                 BattleScore.ItemsDroppedList += ItemModel.FormatOutput() + "\n";
-                BattleMessagesModel.TurnMessageSpecial += " ItemModel " + ItemModel.Name + " dropped";
+                DroppedMessage += ItemModel.Name + " ";
             }
 
             ItemPool.AddRange(myItemList);
+
+            if (myItemList.Count == 0)
+            {
+                DroppedMessage = " Nothing dropped. ";
+            }
+
+            BattleMessagesModel.TurnMessageSpecial += DroppedMessage;
 
             return myItemList.Count();
         }
@@ -308,6 +319,8 @@ namespace Game.Engine
 
             if (d20 == 1)
             {
+                BattleMessagesModel.AttackStatus = " completly misses ";
+
                 // Force Miss
                 BattleMessagesModel.HitStatus = HitStatusEnum.Miss;
                 return BattleMessagesModel.HitStatus;
@@ -315,6 +328,8 @@ namespace Game.Engine
 
             if (d20 == 20)
             {
+                BattleMessagesModel.AttackStatus = " Lucky Hit ";
+
                 // Force Hit
                 BattleMessagesModel.HitStatus = HitStatusEnum.Hit;
                 return BattleMessagesModel.HitStatus;
@@ -324,11 +339,14 @@ namespace Game.Engine
             if (ToHitScore < DefenseScore)
             {
                 BattleMessagesModel.AttackStatus = " misses ";
+                
                 // Miss
                 BattleMessagesModel.HitStatus = HitStatusEnum.Miss;
                 BattleMessagesModel.DamageAmount = 0;
                 return BattleMessagesModel.HitStatus;
             }
+
+            BattleMessagesModel.AttackStatus = " hits ";
 
             // Hit
             BattleMessagesModel.HitStatus = HitStatusEnum.Hit;
@@ -344,15 +362,20 @@ namespace Game.Engine
         {
             // You decide how to drop monster items, level, etc.
 
-            var NumberToDrop = DiceHelper.RollDice(1, round);
+            // The Number drop can be Up to the Round Count, but may be less.  
+            // Negative results in nothing dropped
+            var NumberToDrop = DiceHelper.RollDice(1, round) - DiceHelper.RollDice(1, round);
 
-            var myList = new List<ItemModel>();
+            var result = new List<ItemModel>();
 
             for (var i = 0; i < NumberToDrop; i++)
             {
-                myList.Add(new ItemModel());
+                // Get a random Unique Item
+                var data = ItemIndexViewModel.Instance.GetItem(RandomPlayerHelper.GetMonsterUniqueItem());
+                result.Add(data);
             }
-            return myList;
+
+            return result;
         }
     }
 }
