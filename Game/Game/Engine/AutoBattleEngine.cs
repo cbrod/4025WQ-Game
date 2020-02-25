@@ -55,19 +55,19 @@ namespace Game.Engine
 
             // Prepare for Battle
 
-            // Picks 6 Characters
-            var data = new CharacterModel();
-            for (int i=CharacterList.Count(); i<MaxNumberPartyCharacters; i++) {
-                PopulateCharacterList(data);
-            }
-
             //// Picks 6 Characters
-            //// The Random Player Helper will Create and Select 6 new Characters
-            //// To use your own characters, populate the List before calling RunAutoBattle
-            //for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
-            //{
-            //    PopulateCharacterList(RandomPlayerHelper.GetRandomCharacter(1));
+            //var data = new CharacterModel();
+            //for (int i=CharacterList.Count(); i<MaxNumberPartyCharacters; i++) {
+            //    PopulateCharacterList(data);
             //}
+
+            // Picks 6 Characters
+            // The Random Player Helper will Create and Select 6 new Characters
+            // To use your own characters, populate the List before calling RunAutoBattle
+            for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
+            {
+                PopulateCharacterList(Helpers.RandomPlayerHelper.GetRandomCharacter(1));
+            }
 
             // Start Battle in AutoBattle mode
             StartBattle(true);
