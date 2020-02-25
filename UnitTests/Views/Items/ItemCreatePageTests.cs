@@ -34,7 +34,7 @@ namespace UnitTests.Views
             app = new App();
             Application.Current = app;
 
-            page = new ItemCreatePage(new GenericViewModel<ItemModel>(new ItemModel()));
+            page = new ItemCreatePage();
         }
 
         [TearDown]
@@ -118,10 +118,8 @@ namespace UnitTests.Views
         public void ItemCreatePage_Value_OnStepperValueChanged_Default_Should_Pass()
         {
             // Arrange
-            var data = new ItemModel();
-            var ViewModel = new GenericViewModel<ItemModel>(data);
 
-            page = new ItemCreatePage(ViewModel);
+            page = new ItemCreatePage();
             double oldValue = 0.0;
             double newValue = 1.0;
 
@@ -140,10 +138,8 @@ namespace UnitTests.Views
         public void ItemCreatePage_Range_OnStepperValueChanged_Default_Should_Pass()
         {
             // Arrange
-            var data = new ItemModel();
-            var ViewModel = new GenericViewModel<ItemModel>(data);
 
-            page = new ItemCreatePage(ViewModel);
+            page = new ItemCreatePage();
             double oldRange = 0.0;
             double newRange = 1.0;
 
@@ -162,10 +158,7 @@ namespace UnitTests.Views
         public void ItemCreatePage_Damage_OnStepperDamageChanged_Default_Should_Pass()
         {
             // Arrange
-            var data = new ItemModel();
-            var ViewModel = new GenericViewModel<ItemModel>(data);
-
-            page = new ItemCreatePage(ViewModel);
+            page = new ItemCreatePage();
             double oldDamage = 0.0;
             double newDamage = 1.0;
 

@@ -17,7 +17,7 @@ namespace Game.Views
     public partial class ItemCreatePage : ContentPage
     {
         // The item to create
-        public GenericViewModel<ItemModel> ViewModel { get; set; }
+        public GenericViewModel<ItemModel> ViewModel = new GenericViewModel<ItemModel>();
 
         // Empty Constructor for UTs
         public ItemCreatePage(bool UnitTest){}
@@ -25,19 +25,19 @@ namespace Game.Views
         /// <summary>
         /// Constructor for Create makes a new model
         /// </summary>
-        public ItemCreatePage(GenericViewModel<ItemModel> data)
+        public ItemCreatePage()
         {
             InitializeComponent();
 
-            data.Data = new ItemModel();
+            this.ViewModel.Data = new ItemModel();
 
-            BindingContext = this.ViewModel = data;
+            BindingContext = this.ViewModel;
 
             this.ViewModel.Title = "Create";
 
             //Need to make the SelectedItem a string, so it can select the correct item.
-            LocationPicker.SelectedItem = data.Data.Location.ToString();
-            AttributePicker.SelectedItem = data.Data.Attribute.ToString();
+            LocationPicker.SelectedItem = ViewModel.Data.Location.ToString();
+            AttributePicker.SelectedItem = ViewModel.Data.Attribute.ToString();
         }
 
         /// <summary>
