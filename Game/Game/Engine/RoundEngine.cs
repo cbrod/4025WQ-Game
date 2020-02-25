@@ -57,7 +57,7 @@ namespace Game.Engine
         {
             for (var i = 0; i < MaxNumberPartyMonsters; i++)
             {
-                var data = new MonsterModel { Attack=10, CurrentHealth=1};
+                var data = new MonsterModel { Attack=10, CurrentHealth=10};
                 // Help identify which Monster it is
                 data.Name += " " + MonsterList.Count() + 1;
                 MonsterList.Add(new PlayerInfoModel(data));
