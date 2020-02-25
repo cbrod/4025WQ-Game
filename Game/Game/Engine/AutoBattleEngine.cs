@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Game.Models;
+using Game.ViewModels;
 
 namespace Game.Engine
 {
@@ -55,19 +56,7 @@ namespace Game.Engine
 
             // Prepare for Battle
 
-            //// Picks 6 Characters
-            //var data = new CharacterModel();
-            //for (int i=CharacterList.Count(); i<MaxNumberPartyCharacters; i++) {
-            //    PopulateCharacterList(data);
-            //}
-
-            // Picks 6 Characters
-            // The Random Player Helper will Create and Select 6 new Characters
-            // To use your own characters, populate the List before calling RunAutoBattle
-            for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
-            {
-                PopulateCharacterList(Helpers.RandomPlayerHelper.GetRandomCharacter(1));
-            }
+            CreateCharacterParty();
 
             // Start Battle in AutoBattle mode
             StartBattle(true);
@@ -93,6 +82,34 @@ namespace Game.Engine
 
             // Wrap up
             EndBattle();
+
+            return true;
+        }
+
+        /// <summary>
+        /// Create Characters for Party
+        /// </summary>
+        private bool CreateCharacterParty()
+        {
+            // Picks 6 Characters
+
+            // To use your own characters, populate the List before calling RunAutoBattle
+
+            // Will first pull from existing characters
+            for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
+            {
+                foreach (var data in CharacterIndexViewModel.Instance.Dataset)
+                {
+                    PopulateCharacterList(data);
+                }
+                break;
+            }
+
+            //If there are not enough will add random ones
+            for (int i = CharacterList.Count(); i < MaxNumberPartyCharacters; i++)
+            {
+                PopulateCharacterList(Helpers.RandomPlayerHelper.GetRandomCharacter(1));
+            }
 
             return true;
         }
