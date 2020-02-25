@@ -484,7 +484,7 @@ namespace Game.Models
 
             if (Value > LevelTableHelper.MaxLevel)
             {
-                Value = LevelTableHelper.MaxLevel;
+                return Level;
             }
 
             AddExperience(LevelTableHelper.Instance.LevelDetailsList[Value].Experience + 1);

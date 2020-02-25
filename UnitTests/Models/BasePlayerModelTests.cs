@@ -4,6 +4,7 @@ using Game.Models;
 using Game.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
+using Game.Helpers;
 
 namespace UnitTests.Models
 {
@@ -935,6 +936,142 @@ namespace UnitTests.Models
 
             // Assert
             Assert.AreEqual(true, string.IsNullOrEmpty(result));
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUpToValue_Valid_Should_Pass()
+        {
+            // Arrange
+            var TargetLevel = 2;
+            var NeededExperience = LevelTableHelper.Instance.LevelDetailsList[TargetLevel].Experience;
+
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = NeededExperience+1
+            };
+
+            // Act
+            var result = data.LevelUpToValue(2);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUpToValue_InValid_Same_Level_Should_Skip()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = 10000,
+            };
+
+            // Act
+            var result = data.LevelUpToValue(1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUpToValue_InValid_Neg_Level_Should_Skip()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = 10000,
+            };
+
+            // Act
+            var result = data.LevelUpToValue(-1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUpToValue_InValid_Max_Level_Should_Skip()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = 1000000,
+            };
+
+            // Act
+            var result = data.LevelUpToValue(LevelTableHelper.MaxLevel+1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(data.Level, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUpToValue_InValid_Lower_Level_Should_Fail()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 5,
+                ExperienceTotal = 10000,
+            };
+
+            // Act
+            var result = data.LevelUpToValue(1);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(5, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUp_InValid_Level_1_No_Experience_Should_Fail()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = -1,
+            };
+
+            // Act
+            var result = data.LevelUp();
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(false, result);
+        }
+
+        [Test]
+        public void BasePlayerModel_LevelUp_Valid_Level_2_Should_Pass()
+        {
+            // Arrange
+            var data = new BasePlayerModel<CharacterModel>
+            {
+                Level = 1,
+                ExperienceTotal = 301,
+            };
+
+            // Act
+            var result = data.LevelUp();
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(true, result);
         }
     }
 }
