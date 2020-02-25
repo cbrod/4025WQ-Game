@@ -79,11 +79,11 @@ namespace Game.Models
             myReturn += " , " + Description;
             myReturn += " , Level : " + Level.ToString();
             myReturn += " , Total Experience : " + ExperienceTotal;
-            myReturn += " , Attack " + GetAttackTotal;
-            myReturn += " , Defense " + GetDefenseTotal;
-            myReturn += " , Speed " + GetSpeedTotal;
+            myReturn += " , Attack :" + GetAttackTotal;
+            myReturn += " , Defense :" + GetDefenseTotal;
+            myReturn += " , Speed :" + GetSpeedTotal;
             myReturn += " , Items : " + ItemSlotsFormatOutput();
-            myReturn += " Damage : " + GetDamageTotalString;
+            myReturn += " , Damage : " + GetDamageTotalString;
 
             return myReturn;
         }

@@ -82,7 +82,7 @@ namespace Game.Models
             myReturn += " , Difficulty : " + Difficulty.ToString();
             myReturn += " , Total Experience : " + ExperienceTotal;
             myReturn += " , Items : " + ItemSlotsFormatOutput();
-            myReturn += " Damage : " + GetDamageTotalString;
+            myReturn += " , Damage : " + GetDamageTotalString;
 
             return myReturn;
         }
