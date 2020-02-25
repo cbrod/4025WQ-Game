@@ -1073,5 +1073,79 @@ namespace UnitTests.Models
             // Assert
             Assert.AreEqual(true, result);
         }
+
+        [Test]
+        public void BasePlayerModel_CalculateExperienceEarned_0_Should_Skip()
+        {
+            var data = new BasePlayerModel<MonsterModel>
+            {
+                ExperienceRemaining = 3000,
+                MaxHealth = 20,
+                CurrentHealth = 20
+            };
+
+            // Call calculate experience before applying damage
+            var Result = data.CalculateExperienceEarned(0);
+
+            var Expected = 0;
+
+            Assert.AreEqual(Expected, Result);
+        }
+
+        [Test]
+        public void BasePlayerModel_CalculateExperienceEarned_3_Should_Pass()
+        {
+            var data = new BasePlayerModel<MonsterModel>
+            {
+                ExperienceRemaining = 3000,
+                MaxHealth = 20,
+                CurrentHealth = 20
+            };
+
+            // Call calculate experience before applying damage
+            var Result = data.CalculateExperienceEarned(3);
+
+            var Expected = 450;
+
+            Assert.AreEqual(Expected, Result, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void BasePlayerModel_CalculateExperienceEarned_None_Avaiable_Should_Pass()
+        {
+            var data = new BasePlayerModel<MonsterModel>
+            {
+                ExperienceRemaining = 0,
+                MaxHealth = 20,
+                CurrentHealth = 20
+            };
+
+            // Call calculate experience before applying damage
+            var Result = data.CalculateExperienceEarned(3);
+
+            var Expected = 0;
+
+            Assert.AreEqual(Expected, Result, TestContext.CurrentContext.Test.Name);
+        }
+
+        [Test]
+        public void BasePlayerModel_CalculateExperienceEarned_Remaining_Should_Pass()
+        {
+            //      CalculateExperienceEarned(int)  11	100.00%	0	0.00%
+
+            var data = new BasePlayerModel<MonsterModel>
+            {
+                ExperienceRemaining = 1,
+                MaxHealth = 20,
+                CurrentHealth = 20
+            };
+
+            // Call calculate experience before applying damage
+            var Result = data.CalculateExperienceEarned(3);
+
+            var Expected = 1;
+
+            Assert.AreEqual(Expected, Result, TestContext.CurrentContext.Test.Name);
+        }
     }
 }
