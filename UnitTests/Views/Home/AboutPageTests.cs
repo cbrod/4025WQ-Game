@@ -42,20 +42,6 @@ namespace UnitTests.Views
         }
 
         [Test]
-        public void AboutPage_Constructor_Default_Should_Pass()
-        {
-            // Arrange
-
-            // Act
-            var result = page;
-
-            // Reset
-
-            // Assert
-            Assert.IsNotNull(result);
-        }
-
-        [Test]
         public void AboutPage_Elements_Get_Set_Should_Pass()
         {
             // Arrange
