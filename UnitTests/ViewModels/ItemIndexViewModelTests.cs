@@ -107,6 +107,20 @@ namespace UnitTests.ViewModels
         }
 
         [Test]
+        public void ItemIndexViewModel_CheckIfItemExists_Invalid_Null_Should_Fail ()
+        {
+            // Arrange
+
+            // Act
+            var result = ViewModel.CheckIfExists(null);
+
+            // Reset
+
+            // Assert
+            Assert.AreEqual(null, result);
+        }
+
+        [Test]
         public async Task ItemIndexViewModel_CheckIfItemExists_InValid_Missing_Should_Fail()
         {
             // Arrange

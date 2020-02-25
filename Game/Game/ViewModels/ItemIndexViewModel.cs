@@ -102,6 +102,11 @@ namespace Game.ViewModels
         /// <returns></returns>
         public override ItemModel CheckIfExists(ItemModel data)
         {
+            if (data == null)
+            {
+                return null;
+            }
+
             // This will walk the items and find if there is one that is the same.
             // If so, it returns the item...
 
