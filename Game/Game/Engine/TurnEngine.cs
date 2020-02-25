@@ -73,7 +73,7 @@ namespace Game.Engine
             }
 
             // Do Attack
-            TurnAsAttack(Attacker,Target);
+            TurnAsAttack(Attacker, Target);
 
             CurrentAttacker = new PlayerInfoModel(Attacker);
             CurrentDefender = new PlayerInfoModel(Target);
@@ -169,23 +169,10 @@ namespace Game.Engine
             }
 
             // Set Messages to empty
-            BattleMessagesModel.TurnMessage = string.Empty;
-            BattleMessagesModel.TurnMessageSpecial = string.Empty;
-            BattleMessagesModel.AttackStatus = string.Empty;
+            ClearBattleMessages();
 
-            // Remember Current Player
-            BattleMessagesModel.PlayerType = PlayerTypeEnum.Monster;
-
-            // Choose who to attack
-
-            BattleMessagesModel.TargetName = Target.Name;
-            BattleMessagesModel.AttackerName = Attacker.Name;
-
-            // Set Attack and Defense
-            var AttackScore = Attacker.Level + Attacker.GetAttack();
-            var DefenseScore = Target.GetDefense() + Target.Level;
-
-            BattleMessagesModel.HitStatus = RollToHitTarget(AttackScore, DefenseScore);
+            // Do the Attack
+            CalculateAttackStatus(Attacker, Target);
 
             switch (BattleMessagesModel.HitStatus)
             {
@@ -196,19 +183,87 @@ namespace Game.Engine
 
                 case HitStatusEnum.Hit:
                     // It's a Hit
+
                     //Calculate Damage
                     BattleMessagesModel.DamageAmount = Attacker.GetDamageRollValue();
 
+                    // Apply the Damage
                     Target.TakeDamage(BattleMessagesModel.DamageAmount);
                     BattleMessagesModel.CurrentHealth = Target.CurrentHealth;
                     BattleMessagesModel.TurnMessageSpecial = BattleMessagesModel.GetCurrentHealthMessage();
 
+                    // Check if Dead and Remove
                     RemoveIfDead(Target);
+
+                    // If it is a character apply the experience earned
+                    CalculateExperience(Attacker, Target);
+
                     break;
             }
 
-            BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial;
+            BattleMessagesModel.TurnMessage = Attacker.Name + BattleMessagesModel.AttackStatus + Target.Name + BattleMessagesModel.TurnMessageSpecial + BattleMessagesModel.ExperienceEarned;
             Debug.WriteLine(BattleMessagesModel.TurnMessage);
+
+            return true;
+        }
+
+        /// <summary>
+        /// Calculate the Attack, return if it hit or missed.
+        /// </summary>
+        /// <param name="Attacker"></param>
+        /// <param name="Target"></param>
+        /// <returns></returns>
+        public HitStatusEnum CalculateAttackStatus(PlayerInfoModel Attacker, PlayerInfoModel Target)
+        {
+            // Remember Current Player
+            BattleMessagesModel.PlayerType = PlayerTypeEnum.Monster;
+
+            // Choose who to attack
+            BattleMessagesModel.TargetName = Target.Name;
+            BattleMessagesModel.AttackerName = Attacker.Name;
+
+            // Set Attack and Defense
+            var AttackScore = Attacker.Level + Attacker.GetAttack();
+            var DefenseScore = Target.GetDefense() + Target.Level;
+
+            BattleMessagesModel.HitStatus = RollToHitTarget(AttackScore, DefenseScore);
+
+            return BattleMessagesModel.HitStatus;
+        }
+
+        /// <summary>
+        /// Set the Battle Messages to Empty so they are fresh
+        /// </summary>
+        public bool ClearBattleMessages()
+        {
+            BattleMessagesModel.TurnMessage = string.Empty;
+            BattleMessagesModel.TurnMessageSpecial = string.Empty;
+            BattleMessagesModel.AttackStatus = string.Empty;
+            BattleMessagesModel.ExperienceEarned = string.Empty;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Calculate Experience
+        /// Level up if needed
+        /// </summary>
+        /// <param name="Attacker"></param>
+        /// <param name="Target"></param>
+        public bool CalculateExperience(PlayerInfoModel Attacker, PlayerInfoModel Target)
+        {
+            if (Attacker.PlayerType == PlayerTypeEnum.Character)
+            {
+                var experienceEarned = Target.CalculateExperienceEarned(BattleMessagesModel.DamageAmount);
+                BattleMessagesModel.ExperienceEarned = " Earned " + experienceEarned + " points";
+
+                var LevelUp = Attacker.AddExperience(experienceEarned);
+                if (LevelUp)
+                {
+                    BattleMessagesModel.LevelUpMessage = Attacker.Name + " is now Level " + Attacker.Level + " With Health Max of " + Attacker.GetMaxHealthTotal;
+                    Debug.WriteLine(BattleMessagesModel.LevelUpMessage);
+                }
+            }
 
             return true;
         }
@@ -225,7 +280,7 @@ namespace Game.Engine
                 TargedDied(Target);
                 return true;
             }
-            
+
             return false;
         }
 
@@ -339,7 +394,7 @@ namespace Game.Engine
             if (ToHitScore < DefenseScore)
             {
                 BattleMessagesModel.AttackStatus = " rolls " + d20 + " and misses ";
-                
+
                 // Miss
                 BattleMessagesModel.HitStatus = HitStatusEnum.Miss;
                 BattleMessagesModel.DamageAmount = 0;
@@ -364,7 +419,7 @@ namespace Game.Engine
 
             // The Number drop can be Up to the Round Count, but may be less.  
             // Negative results in nothing dropped
-            var NumberToDrop = (DiceHelper.RollDice(1, round+1)-1);
+            var NumberToDrop = (DiceHelper.RollDice(1, round + 1) - 1);
 
             var result = new List<ItemModel>();
 
