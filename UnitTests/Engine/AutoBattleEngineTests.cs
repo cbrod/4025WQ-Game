@@ -154,36 +154,5 @@ namespace UnitTests.Engine
             //Assert
             Assert.AreEqual(6, Engine.CharacterList.Count());
         }
-
-        [Test]
-        public void AutoBattleEngine_RunAutoBattle_Character_Level_Up_Should_Pass()
-        {
-            // Test to force leveling up of a character during the battle
-
-            //Arrange
-            Engine.MaxNumberPartyCharacters = 1;
-
-            CharacterIndexViewModel.Instance.Dataset.Clear();
-
-            // To See Level UP happening, a character needs to be close to the next level
-            var Character = new CharacterModel
-            {
-                ExperienceTotal = 300,    // Enough for next level
-                Name = "Mike Level Example",
-                Speed = 100,    // Go first
-            };
-
-            var CharacterPlayer = new PlayerInfoModel(Character);
-
-            Engine.CharacterList.Add(CharacterPlayer);
-
-            //Act
-            var result = Engine.RunAutoBattle();
-
-            //Reset
-
-            //Assert
-            Assert.AreEqual(true, Engine.BattleScore.CharacterAtDeathList.Contains("Mike Level Example"));
-        }
     }
 }
